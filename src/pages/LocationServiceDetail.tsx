@@ -11,6 +11,7 @@ import { getLocationBySlug, LOCATIONS, PRIMARY_LOCATION } from "@/config/locatio
 import { getServiceBySlug, SERVICES } from "@/config/services";
 import { BRAND } from "@/config/brand";
 import { getServiceInLocationSEO } from "@/config/seo";
+import { getServiceOgImage } from "@/config/ogImages";
 import {
   generateServiceInLocationSchema,
   generateBreadcrumbSchema,
@@ -48,7 +49,7 @@ const LocationServiceDetail = () => {
 
   return (
     <Layout>
-      <SEOHead metadata={getServiceInLocationSEO(service, location)} />
+      <SEOHead metadata={getServiceInLocationSEO(service, location)} ogImage={getServiceOgImage(service.slug)} />
       <SchemaScript
         schema={[
           ...generateServiceInLocationSchema(service, location),

@@ -11,6 +11,7 @@ import { getLocationBySlug, LOCATIONS, PRIMARY_LOCATION } from "@/config/locatio
 import { SERVICES } from "@/config/services";
 import { BRAND } from "@/config/brand";
 import { getLocationSEO } from "@/config/seo";
+import { LOCATIONS_OG_IMAGE } from "@/config/ogImages";
 import {
   generateLocalBusinessSchema,
   generatePlaceSchema,
@@ -43,7 +44,7 @@ const LocationDetail = () => {
 
   return (
     <Layout>
-      <SEOHead metadata={getLocationSEO(location)} />
+      <SEOHead metadata={getLocationSEO(location)} ogImage={LOCATIONS_OG_IMAGE} />
       <SchemaScript
         schema={[
           generateLocalBusinessSchema(location),

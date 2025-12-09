@@ -10,6 +10,7 @@ import { getServiceBySlug, SERVICES } from "@/config/services";
 import { LOCATIONS, PRIMARY_LOCATION } from "@/config/locations";
 import { BRAND } from "@/config/brand";
 import { getServiceSEO } from "@/config/seo";
+import { getServiceOgImage } from "@/config/ogImages";
 import {
   generateServiceSchema,
   generateLocalBusinessSchema,
@@ -49,7 +50,7 @@ const ServiceDetail = () => {
 
   return (
     <Layout>
-      <SEOHead metadata={getServiceSEO(service)} />
+      <SEOHead metadata={getServiceSEO(service)} ogImage={getServiceOgImage(service.slug)} />
       <SchemaScript
         schema={[
           generateServiceSchema(service),
