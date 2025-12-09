@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/accordion";
 import { BRAND } from "@/config/brand";
 
-const faqs = [
+export const faqs = [
   {
     question: "How quickly can you respond to an emergency?",
     answer: `We aim to respond to emergency callouts within 1-2 hours across ${BRAND.serviceAreaLabel}. Our 24/7 service means we're available whenever you need us.`,

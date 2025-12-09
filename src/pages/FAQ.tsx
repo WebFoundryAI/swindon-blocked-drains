@@ -1,13 +1,16 @@
 import { Layout } from "@/components/layout/Layout";
-import { FAQSection } from "@/components/sections/FAQSection";
+import { FAQSection, faqs } from "@/components/sections/FAQSection";
 import { CTASection } from "@/components/sections/CTASection";
 import { SEOHead } from "@/components/seo/SEOHead";
+import { SchemaScript } from "@/components/seo/SchemaScript";
 import { getFAQSEO } from "@/config/seo";
+import { generateFAQSchema } from "@/lib/schema";
 
 const FAQ = () => {
   return (
     <Layout>
       <SEOHead metadata={getFAQSEO()} />
+      <SchemaScript schema={generateFAQSchema(faqs)} />
       <section className="hero-section">
         <div className="hero-overlay py-16 md:py-20">
           <div className="container-wide px-4 text-center text-primary-foreground">
