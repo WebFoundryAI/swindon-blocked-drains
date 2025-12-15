@@ -63,7 +63,7 @@ export function AIContentBlock({
   return (
     <div className={`space-y-4 ${className}`}>
       {paragraphs.map((paragraph, index) => (
-        <p key={index} className="text-muted-foreground leading-relaxed">
+        <p key={index} className="text-muted-foreground leading-relaxed text-lg md:text-xl">
           {paragraph}
         </p>
       ))}
