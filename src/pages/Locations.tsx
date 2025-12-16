@@ -3,11 +3,14 @@ import { LocationsGrid } from "@/components/sections/LocationsGrid";
 import { CTASection } from "@/components/sections/CTASection";
 import { RouteSEOHead } from "@/components/seo/RouteSEOHead";
 import { SchemaScript } from "@/components/seo/SchemaScript";
+import { Breadcrumbs } from "@/components/nav/Breadcrumbs";
 import { BRAND } from "@/config/brand";
 import { LOCATIONS } from "@/config/locations";
 import { generateLocalBusinessSchema, generateLocationsListSchema, generateBreadcrumbSchema } from "@/lib/schema";
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Clock, CheckCircle } from "lucide-react";
+
+const breadcrumbItems = [{ label: "Areas We Cover" }];
 
 const Locations = () => {
   return (
@@ -37,6 +40,7 @@ const Locations = () => {
       {/* Introduction Section */}
       <section className="section-padding">
         <div className="container-wide px-4">
+          <Breadcrumbs items={breadcrumbItems} />
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-6">
               {BRAND.brandName} is proud to serve homeowners and businesses throughout {BRAND.serviceAreaLabel} and the surrounding villages. Whether you're dealing with a blocked drain in central Swindon or need emergency drainage services in Royal Wootton Bassett, our experienced team is just a phone call away.

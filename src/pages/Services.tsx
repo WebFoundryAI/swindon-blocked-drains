@@ -4,10 +4,13 @@ import { CTASection } from "@/components/sections/CTASection";
 import { AIContentBlock } from "@/components/ai/AIContentBlock";
 import { SchemaScript } from "@/components/seo/SchemaScript";
 import { RouteSEOHead } from "@/components/seo/RouteSEOHead";
+import { Breadcrumbs } from "@/components/nav/Breadcrumbs";
 import { BRAND } from "@/config/brand";
 import { PRIMARY_LOCATION } from "@/config/locations";
 import { SERVICES } from "@/config/services";
 import { generateLocalBusinessSchema, generateServicesListSchema, generateBreadcrumbSchema } from "@/lib/schema";
+
+const breadcrumbItems = [{ label: "Services" }];
 
 const Services = () => {
   return (
@@ -39,6 +42,7 @@ const Services = () => {
       {/* AI-generated services overview */}
       <section className="section-padding bg-muted/30">
         <div className="container-wide px-4">
+          <Breadcrumbs items={breadcrumbItems} />
           <div className="max-w-3xl mx-auto">
             <AIContentBlock
               type="services"
