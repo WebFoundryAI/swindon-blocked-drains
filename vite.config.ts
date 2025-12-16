@@ -26,7 +26,6 @@ export default defineConfig(({ mode }) => ({
             '@radix-ui/react-select',
             '@radix-ui/react-accordion',
             '@radix-ui/react-dialog',
-            '@radix-ui/react-popover',
           ],
         },
       },
