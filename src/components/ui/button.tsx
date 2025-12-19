@@ -20,11 +20,12 @@ const buttonVariants = cva(
         "hero-outline": "bg-transparent border-2 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 font-semibold",
       },
       size: {
-        default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
-        lg: "h-11 rounded-md px-8",
-        xl: "h-14 rounded-lg px-10 text-base",
-        icon: "h-10 w-10",
+        // Mobile-first: min-h-[48px] for touch, md:min-h-0 for desktop
+        default: "min-h-[48px] md:min-h-[40px] h-auto md:h-10 px-4 py-2",
+        sm: "min-h-[44px] md:min-h-[36px] h-auto md:h-9 rounded-md px-3",
+        lg: "min-h-[48px] md:min-h-[44px] h-auto md:h-11 rounded-md px-8",
+        xl: "min-h-[56px] md:min-h-[56px] h-auto md:h-14 rounded-lg px-10 text-base",
+        icon: "min-h-[48px] min-w-[48px] md:min-h-[40px] md:min-w-[40px] h-auto w-auto md:h-10 md:w-10",
       },
     },
     defaultVariants: {

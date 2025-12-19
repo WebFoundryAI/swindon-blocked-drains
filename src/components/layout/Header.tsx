@@ -28,7 +28,7 @@ export function Header() {
             <Phone className="h-4 w-4" />
             <a 
               href={`tel:${BRAND.phone}`} 
-              className="font-medium hover:underline"
+              className="font-medium hover:underline min-h-[44px] flex items-center px-1 -mx-1"
               onClick={handlePhoneClick}
             >
               {BRAND.phone}
@@ -46,7 +46,7 @@ export function Header() {
       {/* Main navigation */}
       <div className="container-wide px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2 min-h-[48px]">
             {BRAND.logoUrl ? (
               <img 
                 src={BRAND.logoUrl} 
@@ -67,7 +67,7 @@ export function Header() {
               <Link
                 key={link.href}
                 to={link.href}
-                className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-md hover:bg-muted"
+                className="px-4 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors rounded-md hover:bg-muted min-h-[44px] flex items-center"
               >
                 {link.label}
               </Link>
@@ -77,9 +77,9 @@ export function Header() {
             </Button>
           </nav>
 
-          {/* Mobile menu button */}
+          {/* Mobile menu button - 48x48 touch target */}
           <button
-            className="lg:hidden p-2"
+            className="lg:hidden p-3 -mr-3 min-h-[48px] min-w-[48px] flex items-center justify-center"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -94,14 +94,14 @@ export function Header() {
               <Link
                 key={link.href}
                 to={link.href}
-                className="block px-4 py-3 text-foreground/80 hover:text-primary hover:bg-muted rounded-md transition-colors"
+                className="block px-4 py-3 min-h-[48px] text-foreground/80 hover:text-primary hover:bg-muted rounded-md transition-colors flex items-center"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
             <div className="px-4 pt-4">
-              <Button asChild className="w-full" variant="cta">
+              <Button asChild className="w-full min-h-[48px]" variant="cta">
                 <Link to="/contact" onClick={() => setIsMenuOpen(false)}>Get a Quote</Link>
               </Button>
             </div>

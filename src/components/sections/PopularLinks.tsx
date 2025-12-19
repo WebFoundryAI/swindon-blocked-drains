@@ -18,7 +18,38 @@ export function PopularLinks({ recentPosts = [] }: PopularLinksProps) {
   return (
     <div className="border-t border-background/20 pt-8 mt-8">
       <h4 className="font-semibold mb-4 text-center">Popular Links</h4>
-      <div className="flex flex-wrap justify-center gap-3 text-sm">
+      {/* Mobile: vertical list with touch targets */}
+      <div className="flex flex-col md:hidden gap-0 text-sm">
+        {topServices.map((service) => (
+          <Link
+            key={service.slug}
+            to={`/services/${service.slug}`}
+            className="text-background/70 hover:text-accent transition-colors min-h-[48px] py-3 flex items-center justify-center"
+          >
+            {service.name}
+          </Link>
+        ))}
+        {topLocations.map((location) => (
+          <Link
+            key={location.slug}
+            to={`/location/${location.slug}`}
+            className="text-background/70 hover:text-accent transition-colors min-h-[48px] py-3 flex items-center justify-center"
+          >
+            {location.name}
+          </Link>
+        ))}
+        {recentPosts.slice(0, 3).map((post) => (
+          <Link
+            key={post.slug}
+            to={`/blog/${post.slug}`}
+            className="text-background/70 hover:text-accent transition-colors min-h-[48px] py-3 flex items-center justify-center"
+          >
+            {post.title}
+          </Link>
+        ))}
+      </div>
+      {/* Desktop: horizontal with separators */}
+      <div className="hidden md:flex flex-wrap justify-center gap-3 text-sm">
         {topServices.map((service) => (
           <Link
             key={service.slug}
