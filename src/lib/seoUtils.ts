@@ -101,6 +101,26 @@ export function getSeoMeta(pathname: string, params: RouteParams = {}): SEOMeta 
     const subService = getSubServiceBySlug(params.serviceSlug, params.subServiceSlug);
     const serviceName = service?.name || slugToTitle(params.serviceSlug);
     const subServiceName = subService?.name || slugToTitle(params.subServiceSlug);
+
+    // Custom SEO for specific sub-services
+    if (params.subServiceSlug === "blocked-sink") {
+      return {
+        title: "Blocked Sink Swindon | Fast Local Unblocking",
+        description: "Blocked sink in Swindon? Our local drainage experts clear kitchen and bathroom sinks fast. No call-out fee, fixed pricing. Call now for same-day service.",
+        canonicalUrl,
+        noIndex,
+      };
+    }
+
+    if (params.subServiceSlug === "domestic-jetting") {
+      return {
+        title: "Domestic Drain Jetting Swindon | Stubborn Blockages Cleared",
+        description: "High-pressure drain jetting for Swindon homes. Clears fat, grease, and root ingress safely. Professional equipment, no mess. Book your jetting service today.",
+        canonicalUrl,
+        noIndex,
+      };
+    }
+
     return {
       title: `${subServiceName} | ${serviceName} | ${BRAND.brandName}`,
       description: `${subService?.description || `Professional ${subServiceName.toLowerCase()} services.`} Fast response, fixed pricing. Call ${PHONE_DISPLAY}`,
