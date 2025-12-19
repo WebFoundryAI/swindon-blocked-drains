@@ -10,7 +10,6 @@ import { generateBlogPostSchema, generateBreadcrumbSchema } from "@/lib/schema";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
-import { getCanonicalUrl } from "@/lib/seoUtils";
 
 interface BlogPostData {
   id: string;
@@ -105,7 +104,7 @@ const BlogPost = () => {
         override={{
           title: `${post.title} | ${BRAND.brandName} Blog`,
           description: post.excerpt,
-          canonicalUrl: getCanonicalUrl(`/blog/${post.slug}`),
+          canonicalPath: `/blog/${post.slug}`,
           noIndex: !shouldIndex,
         }}
       />

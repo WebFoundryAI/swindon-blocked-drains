@@ -13,16 +13,17 @@ export function slugToTitle(slug: string): string {
     .join(" ");
 }
 
-// Ensure trailing slash consistency
-export function normalizePathWithTrailingSlash(path: string): string {
+// Normalize path: no trailing slash except homepage
+export function normalizeCanonicalPath(path: string): string {
   if (path === "/" || path === "") return "/";
-  // Remove any existing trailing slash, then add one
-  return path.replace(/\/+$/, "") + "/";
+  return path.replace(/\/+$/, "");
 }
 
-// Get canonical URL for current path
+// Get canonical URL: no trailing slash except homepage
 export function getCanonicalUrl(pathname: string): string {
-  const normalizedPath = normalizePathWithTrailingSlash(pathname);
+  const normalizedPath = normalizeCanonicalPath(pathname);
+  // Homepage gets trailing slash for consistency with domain
+  if (normalizedPath === "/") return `${BASE_URL}/`;
   return `${BASE_URL}${normalizedPath}`;
 }
 
