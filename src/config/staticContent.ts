@@ -1578,15 +1578,102 @@ Yes — we cover homes, pubs, shops, warehouses and managing agents.
 
 We respond fast — 7 days a week — with no call-out gimmicks and full transparency.`,
 
-  "subServiceInLocation:swindon:emergency-drain-services:sewage-emergency": `If you're facing a sewage emergency in Swindon, Blocked Drains Swindon is here to assist. Our team of experienced professionals is available round the clock to address urgent drainage issues swiftly and efficiently. A sewage emergency can pose serious health risks and lead to significant property damage if not handled promptly.
+  "subServiceInLocation:swindon:emergency-drain-services:sewage-emergency": `# Sewage Emergency in Swindon – Fast, Safe Clean-Up and Clearance
 
-In Swindon, common signs of a sewage problem include unpleasant odours from drains, slow drainage in sinks or baths, and toilets refusing to flush properly. Given the area's older infrastructure and heavy rainfall periods, issues related to blocked drains or sewer overflow can frequently occur. Areas such as Freshbrook, Park South, and Old Town often face drainage struggles due to ageing pipes or heavy usage during peak times.
+Sewage overflow? Blocked toilet flooding your property? We handle emergency sewage clearance across Swindon with fast, safe, and discreet service.
 
-When faced with a sewage emergency, homeowners should follow basic guidelines. First, avoid flushing non-biodegradable items. In the event of sewage overflow, keep children and pets away from affected areas and don't attempt to clean up without proper protective gear. Instead, contact professionals who can handle the situation safely.
+---
 
-Detecting the cause of sewage issues can sometimes be complex. Blocked pipes may result from fat and grease build-up or root intrusion from nearby trees. Heavy rains can also exacerbate existing problems, leading to localised flooding and sewer backups.
+## 🚑 Emergency Sewage Issues We Handle
 
-At Blocked Drains Swindon, we utilise the latest technology to diagnose and resolve your sewage emergencies quickly. Call us immediately at 01793487489.`,
+- Overflowing or blocked toilets spilling indoors
+- Raw sewage leaking from manholes or drains
+- Flooded basements or gardens with foul water
+- Commercial washroom backups
+
+These situations can be dangerous. Our team wears full PPE and uses disinfectant treatments to protect your property and health.
+
+[Call now for help →](tel:01793487489) or [Book online →](/contact)
+
+---
+
+## ⏰ Fast Response. Clean Results.
+
+We offer same-day emergency visits across Swindon, including:
+
+- Wroughton
+- Stratton
+- Cheney Manor
+- Royal Wootton Bassett
+
+We use:
+
+- High-pressure jetting to clear blockages
+- Industrial wet vacs and extraction tools
+- Bio-safe disinfectant spray and deodoriser
+
+> "Toilet overflowed and leaked through the ceiling. These guys came out fast, sorted it, and sanitised everything. Brilliant."
+> – Diane H., Swindon SN2
+
+---
+
+## 💸 Emergency Sewage Clearance Cost
+
+Pricing starts from **£139 + VAT**, including:
+
+- Priority attendance
+- Initial blockage removal
+- Clean-up and waste disposal advice
+
+Additional charges only apply if extra equipment or multiple systems are affected. You'll always get a clear quote before we begin.
+
+[Request a fast quote →](/contact)
+
+---
+
+## 🔍 After the Emergency
+
+If sewage has backed up once, it may happen again. We can follow up with:
+
+- CCTV inspection to check pipe condition
+- Pipe repair or drain lining quotes
+- Insurance-ready incident reports
+
+[More on CCTV surveys →](/services/cctv-drain-surveys)
+[Blocked drain solutions →](/services/blocked-drains/)
+
+---
+
+## 💬 Sewage Emergency FAQs
+
+**Is raw sewage dangerous?**
+Yes. It contains harmful bacteria and must be dealt with quickly and professionally.
+
+**Do I need to leave the house?**
+Usually not, but keep children and pets away from affected areas. We'll advise case-by-case.
+
+**Do you remove the waste too?**
+Yes. We clean up and advise on safe disposal if needed. For larger contamination, we can arrange full waste removal.
+
+**Can you fix the cause permanently?**
+We can quote for full repairs, lining, or replacement after the emergency is under control.
+
+---
+
+## 📍 Related Services
+
+- [Emergency Flooding Clearance →](/location/swindon/emergency-drain-services/flooding-emergency)
+- [Drain Jetting Swindon →](/location/swindon/drain-jetting)
+- [Blocked Toilets & Sinks →](/services/blocked-drains/blocked-sink)
+
+---
+
+## 📞 Call Now for Emergency Sewage Help
+
+**Phone:** [01793 487489](tel:01793487489)
+**Or [Request Immediate Help →](/contact)**
+
+We respond quickly and cleanly to sewage emergencies. No call-out fees. No delay.`,
 
   // ===== SUB-SERVICE IN LOCATION - WROUGHTON =====
   "subServiceInLocation:wroughton:blocked-drains:blocked-bath": `Are you struggling with a blocked bath or shower in Wroughton? At Blocked Drains Swindon, we understand how inconvenient and frustrating drainage issues can be. A blocked bath or shower can disrupt your daily routine, making simple tasks like bathing a hassle. Our team of experienced professionals is here to help you resolve these issues quickly and efficiently.
