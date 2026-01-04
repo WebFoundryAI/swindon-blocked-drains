@@ -114,27 +114,19 @@
 
     <meta name="geo.region" content="GB-WIL" />
     <meta name="geo.placename" content="Swindon" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CB8VD65Z4Y"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      window.gtag = gtag;
+      gtag('js', new Date());
+      gtag('config', 'G-CB8VD65Z4Y');
+    </script>
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- GA4 - load only on user interaction to save 56KB from critical path -->
-    <script>
-      function loadGA4() {
-        if (window.ga4Loaded) return;
-        window.ga4Loaded = true;
-        var s = document.createElement('script');
-        s.src = 'https://www.googletagmanager.com/gtag/js?id=G-CB8VD65Z4Y';
-        s.async = true;
-        document.head.appendChild(s);
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        window.gtag = gtag;
-        gtag('js', new Date());
-        gtag('config', 'G-CB8VD65Z4Y');
-      }
-      ['scroll','click','touchstart'].forEach(function(e){document.addEventListener(e,loadGA4,{once:true,passive:true})});
-    </script>
   </body>
 </html>
