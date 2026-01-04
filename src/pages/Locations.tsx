@@ -124,7 +124,7 @@ const Locations = () => {
 
             <div className="grid md:grid-cols-3 gap-4 mb-8">
               <Link 
-                to="/location/royal-wootton-bassett/blocked-drains" 
+                to="/locations/royal-wootton-bassett/blocked-drains" 
                 className="p-4 bg-muted/30 rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Blocked Drains RWB</h3>
@@ -132,7 +132,7 @@ const Locations = () => {
               </Link>
               
               <Link 
-                to="/location/royal-wootton-bassett/cctv-drain-surveys" 
+                to="/locations/royal-wootton-bassett/cctv-drain-surveys" 
                 className="p-4 bg-muted/30 rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">CCTV Surveys RWB</h3>
@@ -140,7 +140,7 @@ const Locations = () => {
               </Link>
               
               <Link 
-                to="/location/royal-wootton-bassett/emergency-drain-services" 
+                to="/locations/royal-wootton-bassett/emergency-drain-services" 
                 className="p-4 bg-muted/30 rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Emergency Services RWB</h3>
@@ -149,7 +149,7 @@ const Locations = () => {
             </div>
 
             <Link 
-              to="/location/royal-wootton-bassett" 
+              to="/locations/royal-wootton-bassett" 
               className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
             >
               View all Royal Wootton Bassett drainage services →
@@ -177,7 +177,7 @@ const Locations = () => {
 
             <div className="grid md:grid-cols-3 gap-4 mb-8">
               <Link 
-                to="/location/highworth/blocked-drains" 
+                to="/locations/highworth/blocked-drains" 
                 className="p-4 bg-background rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Blocked Drains Highworth</h3>
@@ -185,7 +185,7 @@ const Locations = () => {
               </Link>
               
               <Link 
-                to="/location/highworth/cctv-drain-surveys" 
+                to="/locations/highworth/cctv-drain-surveys" 
                 className="p-4 bg-background rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">CCTV Surveys Highworth</h3>
@@ -193,7 +193,7 @@ const Locations = () => {
               </Link>
               
               <Link 
-                to="/location/highworth/emergency-drain-services" 
+                to="/locations/highworth/emergency-drain-services" 
                 className="p-4 bg-background rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Emergency Services Highworth</h3>
@@ -202,7 +202,7 @@ const Locations = () => {
             </div>
 
             <Link 
-              to="/location/highworth" 
+              to="/locations/highworth" 
               className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
             >
               View all Highworth drainage services →
@@ -230,7 +230,7 @@ const Locations = () => {
 
             <div className="grid md:grid-cols-3 gap-4 mb-8">
               <Link 
-                to="/location/purton/blocked-drains" 
+                to="/locations/purton/blocked-drains" 
                 className="p-4 bg-muted/30 rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Blocked Drains Purton</h3>
@@ -238,7 +238,7 @@ const Locations = () => {
               </Link>
               
               <Link 
-                to="/location/purton/cctv-drain-surveys" 
+                to="/locations/purton/cctv-drain-surveys" 
                 className="p-4 bg-muted/30 rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">CCTV Surveys Purton</h3>
@@ -246,7 +246,7 @@ const Locations = () => {
               </Link>
               
               <Link 
-                to="/location/purton/emergency-drain-services" 
+                to="/locations/purton/emergency-drain-services" 
                 className="p-4 bg-muted/30 rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Emergency Services Purton</h3>
@@ -255,7 +255,7 @@ const Locations = () => {
             </div>
 
             <Link 
-              to="/location/purton" 
+              to="/locations/purton" 
               className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
             >
               View all Purton drainage services →
@@ -283,7 +283,7 @@ const Locations = () => {
 
             <div className="grid md:grid-cols-3 gap-4 mb-8">
               <Link 
-                to="/location/cricklade/blocked-drains" 
+                to="/locations/cricklade/blocked-drains" 
                 className="p-4 bg-background rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Blocked Drains Cricklade</h3>
@@ -291,7 +291,7 @@ const Locations = () => {
               </Link>
               
               <Link 
-                to="/location/cricklade/cctv-drain-surveys" 
+                to="/locations/cricklade/cctv-drain-surveys" 
                 className="p-4 bg-background rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">CCTV Surveys Cricklade</h3>
@@ -299,7 +299,7 @@ const Locations = () => {
               </Link>
               
               <Link 
-                to="/location/cricklade/emergency-drain-services" 
+                to="/locations/cricklade/emergency-drain-services" 
                 className="p-4 bg-background rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Emergency Services Cricklade</h3>
@@ -308,7 +308,7 @@ const Locations = () => {
             </div>
 
             <Link 
-              to="/location/cricklade" 
+              to="/locations/cricklade" 
               className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
             >
               View all Cricklade drainage services →
@@ -336,7 +336,7 @@ const Locations = () => {
 
             <div className="grid md:grid-cols-3 gap-4 mb-8">
               <Link 
-                to="/location/wroughton/blocked-drains" 
+                to="/locations/wroughton/blocked-drains" 
                 className="p-4 bg-muted/30 rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Blocked Drains Wroughton</h3>
@@ -344,7 +344,7 @@ const Locations = () => {
               </Link>
               
               <Link 
-                to="/location/wroughton/cctv-drain-surveys" 
+                to="/locations/wroughton/cctv-drain-surveys" 
                 className="p-4 bg-muted/30 rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">CCTV Surveys Wroughton</h3>
@@ -352,7 +352,7 @@ const Locations = () => {
               </Link>
               
               <Link 
-                to="/location/wroughton/emergency-drain-services" 
+                to="/locations/wroughton/emergency-drain-services" 
                 className="p-4 bg-muted/30 rounded-lg border hover:border-primary transition-colors group"
               >
                 <h3 className="font-semibold text-lg group-hover:text-primary transition-colors">Emergency Services Wroughton</h3>
@@ -361,7 +361,7 @@ const Locations = () => {
             </div>
 
             <Link 
-              to="/location/wroughton" 
+              to="/locations/wroughton" 
               className="inline-flex items-center gap-2 text-primary font-semibold hover:underline"
             >
               View all Wroughton drainage services →

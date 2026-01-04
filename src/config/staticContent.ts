@@ -64,10 +64,10 @@ We work with both homeowners and businesses. Our core services include:
 
 - [Blocked drains cleared →](/services/blocked-drains)
 - [Toilet and sink unblocking →](/services/blocked-drains/blocked-toilet)
-- [Emergency flooding and sewage help →](/location/swindon/emergency-drain-services/flooding-emergency)
+- [Emergency flooding and sewage help →](/locations/swindon/emergency-drain-services/flooding-emergency)
 - [CCTV drain surveys →](/services/cctv-drain-surveys)
 - [Drain repairs and relining →](/services/drain-repairs)
-- [High-pressure jetting →](/location/swindon/drain-jetting)
+- [High-pressure jetting →](/locations/swindon/drain-jetting)
 
 Everything is handled in-house — no subcontractors, no delays.
 
@@ -299,8 +299,8 @@ Yes. We offer patch repairs, drain lining, and replacement quotes.
 ## 📍 Related Services
 
 - [Drain Unblocking Swindon →](/services/blocked-drains)  
-- [Drain Jetting →](/location/swindon/drain-jetting)  
-- [Emergency Drain Help →](/location/swindon/emergency-drain-services/flooding-emergency)
+- [Drain Jetting →](/locations/swindon/drain-jetting)  
+- [Emergency Drain Help →](/locations/swindon/emergency-drain-services/flooding-emergency)
 
 ---
 
@@ -412,7 +412,7 @@ If we find ongoing issues, we may recommend:
 - Advice on repair if structural problems exist
 
 [Learn about drain surveys →](/services/cctv-drain-surveys)
-[Jetting services →](/location/swindon/drain-jetting)
+[Jetting services →](/locations/swindon/drain-jetting)
 
 ---
 
@@ -434,7 +434,7 @@ Always. Clean-up is included. We leave the area safe and usable.
 
 ## 📍 Related Services
 
-- [Emergency Toilet Overflow →](/location/swindon/emergency-drain-services/sewage-emergency)
+- [Emergency Toilet Overflow →](/locations/swindon/emergency-drain-services/sewage-emergency)
 - [Blocked Sink Service →](/services/blocked-drains/blocked-sink)
 - [CCTV Drain Checks →](/services/cctv-drain-surveys)
 
