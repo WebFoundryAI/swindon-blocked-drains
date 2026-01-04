@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 // Component to redirect to static sitemap.xml file
 const SitemapXmlRedirect = () => {
@@ -15,42 +15,16 @@ import { ScrollToTop } from "./components/ScrollToTop";
 
 // Legacy /location/* redirect to /locations/*
 // Captures all /location paths and redirects to the plural version
+// Uses <Navigate replace> for immediate client-side redirect
 const LegacyLocationRedirect = () => {
   const location = useLocation();
-  const navigate = useNavigate();
   
-  useEffect(() => {
-    // Extract the path after /location
-    const match = location.pathname.match(/^\/location(\/.*)?$/);
-    if (match) {
-      const remainder = match[1] || "";
-      const newPath = `/locations${remainder}${location.search}${location.hash}`;
-      navigate(newPath, { replace: true });
-    }
-  }, [location, navigate]);
+  // Extract the path after /location (handles both /location and /location/*)
+  const match = location.pathname.match(/^\/location(\/.*)?$/);
+  const remainder = match?.[1] || "";
+  const destination = `/locations${remainder}${location.search}${location.hash}`;
   
-  return null;
-};
-
-// Canonical URL normalizer - ensures consistent trailing slash format
-// Uses replaceState to avoid adding history entries
-const CanonicalNormalizer = () => {
-  const location = useLocation();
-  
-  useEffect(() => {
-    const { pathname, search, hash } = location;
-    
-    // Skip static files and root path
-    if (pathname === "/" || pathname.includes(".")) return;
-    
-    // Add trailing slash if missing (to match sitemap convention)
-    if (!pathname.endsWith("/")) {
-      const normalizedUrl = `${pathname}/${search}${hash}`;
-      window.history.replaceState(null, "", normalizedUrl);
-    }
-  }, [location]);
-  
-  return null;
+  return <Navigate to={destination} replace />;
 };
 
 // Critical page - loaded immediately for first paint
@@ -99,7 +73,6 @@ const App = () => (
     <Toaster />
     <BrowserRouter>
         <ScrollToTop />
-        <CanonicalNormalizer />
         <Suspense fallback={<PageLoader />}>
           <Routes>
             <Route path="/" element={<Index />} />

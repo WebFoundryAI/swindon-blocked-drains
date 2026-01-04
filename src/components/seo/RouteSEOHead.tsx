@@ -131,11 +131,16 @@ export function RouteSEOHead({ override, ogImage }: RouteSEOHeadProps = {}) {
   const params = useParams() as RouteParams;
   
   // Normalize pathname (remove trailing slash for lookup, except homepage)
-  const pathname = location.pathname === "/" ? "/" : location.pathname.replace(/\/+$/, "");
+  let pathname = location.pathname === "/" ? "/" : location.pathname.replace(/\/+$/, "");
+  
+  // Belt-and-braces: if somehow we're on /location/*, canonical must point to /locations/*
+  if (pathname.startsWith("/location/") || pathname === "/location") {
+    pathname = pathname.replace(/^\/location/, "/locations");
+  }
   
   // Get base SEO from static map or dynamic generator
   const staticMeta = STATIC_ROUTE_META[pathname];
-  const dynamicMeta = !staticMeta ? getDynamicSeo(location.pathname, params) : null;
+  const dynamicMeta = !staticMeta ? getDynamicSeo(pathname, params) : null;
   
   // Determine final values
   const noIndex = override?.noIndex ?? staticMeta?.noIndex ?? shouldNoIndex(pathname);
