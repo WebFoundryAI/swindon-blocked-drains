@@ -1,5 +1,6 @@
 # Blocked Drains Swindon - robots.txt
 # https://swindonblockeddrains.co.uk
+# Last updated: 2025-01-06
 
 # Standard search crawlers
 User-agent: Googlebot
@@ -51,6 +52,7 @@ Disallow: /admin
 Disallow: /admin/*
 Disallow: /login
 Disallow: /reset-password
+Disallow: /status
 
 # Sitemap location
 Sitemap: https://swindonblockeddrains.co.uk/sitemap.xml
