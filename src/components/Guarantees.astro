@@ -1,0 +1,27 @@
+---
+import { brand } from '../config/brand';
+
+const guarantees = [
+  { title: 'Rapid Response', desc: 'We aim to be with you within 1 hour for emergencies across Swindon and surrounding areas.' },
+  { title: 'Fixed Pricing', desc: 'No hidden fees or surprise charges. We quote before we start so you know exactly what to expect.' },
+  { title: 'Guaranteed Work', desc: 'All our drain services come with a satisfaction guarantee. If it blocks again, we come back free.' },
+];
+---
+
+<section class="section-padding bg-primary text-white">
+  <div class="container-narrow mx-auto">
+    <h2 class="text-center text-3xl font-bold lg:text-4xl">Our Guarantee to You</h2>
+    <p class="mx-auto mt-3 max-w-2xl text-center text-blue-100">We stand behind every job. Professional, reliable drain services you can count on.</p>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      {guarantees.map(g => (
+        <div class="rounded-xl bg-white/10 p-6 backdrop-blur-sm">
+          <h3 class="text-xl font-semibold text-secondary">{g.title}</h3>
+          <p class="mt-2 text-blue-100">{g.desc}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-10 text-center">
+      <a href={brand.phoneHref} class="btn-cta">Call {brand.phone} Now</a>
+    </div>
+  </div>
+</section>

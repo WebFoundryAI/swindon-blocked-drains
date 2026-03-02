@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { brand } from '../config/brand';
+import contentData from '../data/ai-content.json';
+const content = contentData as Record<string, string>;
+
+const title = `About Us | ${brand.name}`;
+const description = `Learn about ${brand.name} - your trusted local drainage company in Swindon, Wiltshire. Fully insured engineers, 24/7 emergency service, no call-out charge.`;
+
+const breadcrumbs = [
+  { name: 'About Us', url: '/about/' },
+];
+
+const pageContent = content['about:page'] || '';
+
+const fallbackContent = `
+<h2>Your Trusted Local Drainage Experts in Swindon</h2>
+<p>${brand.name} is a locally owned and operated drainage company serving Swindon and the surrounding Wiltshire area. With years of hands-on experience, our team of fully qualified and insured drainage engineers is dedicated to providing fast, reliable, and affordable solutions for all your drainage needs.</p>
+
+<h3>Why Choose Us?</h3>
+<p>We understand that drainage problems can be stressful and disruptive, which is why we pride ourselves on delivering a prompt, professional service every time. Whether you have a blocked drain at home, a commercial drainage emergency, or need a pre-purchase CCTV drain survey, we have the expertise and equipment to get the job done right.</p>
+
+<ul>
+  <li><strong>24/7 Emergency Service</strong> &ndash; Drainage emergencies don&rsquo;t wait, and neither do we. Our engineers are on call around the clock to respond to urgent issues across Swindon.</li>
+  <li><strong>No Call-Out Charge</strong> &ndash; We never charge a call-out fee. You only pay for the work we carry out, with a clear, upfront quote before we begin.</li>
+  <li><strong>Fully Insured &amp; Qualified</strong> &ndash; All our engineers carry full public liability insurance and are trained to the highest industry standards.</li>
+  <li><strong>Latest Equipment</strong> &ndash; From high-pressure water jetting rigs to HD CCTV drain cameras, we invest in modern technology to diagnose and resolve problems quickly.</li>
+  <li><strong>Local Knowledge</strong> &ndash; As a Swindon-based company, we know the local drainage infrastructure inside out, allowing us to work efficiently and effectively.</li>
+</ul>
+
+<h3>Our Services</h3>
+<p>We offer a comprehensive range of drainage services to domestic and commercial customers across Swindon and Wiltshire, including:</p>
+<ul>
+  <li>Blocked drain clearance</li>
+  <li>Drain unblocking (internal and external)</li>
+  <li>High-pressure drain jetting</li>
+  <li>CCTV drain surveys and inspections</li>
+  <li>Emergency drain services (24/7)</li>
+  <li>Drain repairs, relining, and excavation</li>
+</ul>
+
+<h3>Serving Swindon &amp; Surrounding Areas</h3>
+<p>We proudly serve customers across Swindon town centre, Old Town, and the wider Wiltshire area including Royal Wootton Bassett, Highworth, Purton, Cricklade, and Wroughton. No matter where you are in our coverage area, we aim to be with you within the hour for emergencies.</p>
+
+<p>If you have a drainage problem or would like a free, no-obligation quote, don&rsquo;t hesitate to <a href="/contact/">get in touch</a> or call us on <a href="${brand.phoneHref}">${brand.phone}</a>.</p>
+`;
+---
+
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
+  <Breadcrumbs items={breadcrumbs} />
+
+  <Hero
+    title="About Us"
+    subtitle={`${brand.name} - Your local drainage experts in Swindon, Wiltshire.`}
+    compact
+    showCta={false}
+  />
+
+  <!-- About Content -->
+  <section class="section-padding">
+    <div class="container-narrow mx-auto max-w-3xl">
+      <div class="prose prose-lg mx-auto text-gray-700">
+        <Fragment set:html={pageContent || fallbackContent} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Us Summary -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-narrow mx-auto">
+      <h2 class="text-center text-3xl font-bold text-accent">Why Customers Choose Us</h2>
+      <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-xl bg-white p-6 shadow-sm text-center">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-3xl">
+            <span>&#9201;</span>
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-accent">Rapid Response</h3>
+          <p class="mt-2 text-gray-600">We aim to reach you within 1 hour for emergency call-outs across Swindon and surrounding areas.</p>
+        </div>
+        <div class="rounded-xl bg-white p-6 shadow-sm text-center">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-3xl">
+            <span>&#163;</span>
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-accent">No Call-Out Fee</h3>
+          <p class="mt-2 text-gray-600">We never charge a call-out fee. You only pay for the work carried out, with a clear quote provided upfront.</p>
+        </div>
+        <div class="rounded-xl bg-white p-6 shadow-sm text-center">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-3xl">
+            <span>&#9989;</span>
+          </div>
+          <h3 class="mt-4 text-lg font-semibold text-accent">Fully Insured</h3>
+          <p class="mt-2 text-gray-600">All our engineers are fully insured and trained to the highest industry standards for your complete peace of mind.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <LeadForm sourcePage="/about/" />
+</BaseLayout>

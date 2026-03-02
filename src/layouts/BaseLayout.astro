@@ -1,0 +1,80 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import MobileCallBar from '../components/MobileCallBar.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import SchemaMarkup from '../components/SchemaMarkup.astro';
+import { brand } from '../config/brand';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  schemas?: object[];
+  breadcrumbs?: { name: string; url: string }[];
+}
+
+const { title, description, canonical, ogImage, schemas = [], breadcrumbs = [] } = Astro.props;
+const canonicalUrl = canonical || new URL(Astro.url.pathname, brand.url).href;
+const ogImageUrl = ogImage || `${brand.url}/images/hero-bg.webp`;
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/pwa-192x192.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#1565a8" />
+    <meta name="geo.region" content="GB-WIL" />
+    <meta name="geo.placename" content="Swindon" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:site_name" content={brand.name} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${brand.gaId}`}></script>
+    <script define:vars={{ gaId: brand.gaId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', gaId);
+    </script>
+
+    <!-- Schema Markup -->
+    <SchemaMarkup schemas={schemas} breadcrumbs={breadcrumbs} />
+  </head>
+  <body class="font-outfit">
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <MobileCallBar />
+    <CookieBanner />
+  </body>
+</html>

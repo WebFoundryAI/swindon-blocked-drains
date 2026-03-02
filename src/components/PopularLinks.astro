@@ -1,0 +1,24 @@
+---
+import { services } from '../config/services';
+import { locations } from '../config/locations';
+
+const popularCombos = locations.slice(0, 3).flatMap(l =>
+  services.slice(0, 3).map(s => ({
+    name: `${s.shortName} in ${l.name}`,
+    url: `/locations/${l.slug}/${s.slug}/`,
+  }))
+);
+---
+
+<section class="section-padding bg-gray-50">
+  <div class="container-narrow mx-auto">
+    <h2 class="text-center text-3xl font-bold text-accent">Popular Services by Area</h2>
+    <div class="mt-8 flex flex-wrap justify-center gap-3">
+      {popularCombos.map(link => (
+        <a href={link.url} class="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm text-gray-700 hover:border-primary hover:text-primary transition-colors">
+          {link.name}
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import LeadForm from '../components/LeadForm.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import { brand } from '../config/brand';
+import contentData from '../data/ai-content.json';
+const content = contentData as Record<string, string>;
+
+const title = `FAQ | ${brand.name}`;
+const description = `Frequently asked questions about blocked drains, drain unblocking, CCTV surveys, and drainage services in Swindon. Get answers from ${brand.name}.`;
+
+const breadcrumbs = [
+  { name: 'FAQ', url: '/faq/' },
+];
+
+const pageContent = content['faq:page'] || '';
+
+const faqs = [
+  {
+    question: 'How quickly can you respond to a drainage emergency?',
+    answer: `We aim to be with you within 1 hour for emergency call-outs across Swindon and surrounding areas. Our drainage engineers are available 24 hours a day, 7 days a week, 365 days a year. Call us on <a href="${brand.phoneHref}" class="text-primary hover:underline">${brand.phone}</a> for immediate assistance.`,
+  },
+  {
+    question: 'Do you charge a call-out fee?',
+    answer: 'No, we do not charge a call-out fee. You only pay for the work carried out. We always provide a clear, upfront quote before starting any job, so you know exactly what to expect with no hidden costs.',
+  },
+  {
+    question: 'What causes blocked drains?',
+    answer: 'Blocked drains can be caused by a range of issues including the build-up of grease and fat, hair, soap residue, food waste, wet wipes (even those labelled "flushable"), tree root ingress, collapsed or cracked pipes, and the accumulation of silt and debris over time. Our CCTV drain surveys can quickly identify the exact cause.',
+  },
+  {
+    question: 'Are your drainage engineers qualified and insured?',
+    answer: 'Yes, all our engineers are fully qualified and carry comprehensive public liability insurance. They are trained to the highest industry standards and regularly update their skills to keep up with the latest drainage technology and techniques.',
+  },
+  {
+    question: 'What areas do you cover?',
+    answer: 'We cover Swindon and the surrounding Wiltshire area, including Royal Wootton Bassett, Highworth, Purton, Cricklade, Wroughton, and many other nearby towns and villages. If you are unsure whether we cover your area, please give us a call.',
+  },
+  {
+    question: 'What is CCTV drain surveying?',
+    answer: 'CCTV drain surveying involves inserting a small, high-definition camera into your drainage system to inspect the inside of your pipes. This allows us to identify blockages, cracks, root ingress, collapsed sections, and other issues without the need for excavation. It is a non-invasive, accurate, and cost-effective diagnostic tool.',
+  },
+  {
+    question: 'How much does drain unblocking cost?',
+    answer: 'The cost of drain unblocking depends on the severity of the blockage, the location, and the method required to clear it. Simple blockages may cost from around &pound;75, while more complex issues may cost more. We always provide a free, no-obligation quote before starting work.',
+  },
+  {
+    question: 'What is high-pressure drain jetting?',
+    answer: 'High-pressure drain jetting uses a powerful stream of water to clear blockages and clean the inside of drain pipes. It is extremely effective at removing stubborn build-ups of grease, fat, silt, tree roots, and other debris. It is safe for most types of pipes and is one of the most efficient drain cleaning methods available.',
+  },
+  {
+    question: 'Can you unblock drains without digging?',
+    answer: 'In most cases, yes. We use techniques such as high-pressure water jetting and electro-mechanical cleaning to clear blockages without excavation. For damaged pipes, we can often use no-dig repair methods such as drain relining. However, in severe cases where a pipe has completely collapsed, excavation may be necessary.',
+  },
+  {
+    question: 'Do I need a CCTV survey before buying a property?',
+    answer: 'A pre-purchase CCTV drain survey is highly recommended before buying a property. It can reveal hidden drainage issues such as cracked or collapsed pipes, root ingress, or misaligned joints that may not be visible during a standard house survey. Identifying these problems before purchase can save you thousands in unexpected repair costs.',
+  },
+  {
+    question: 'What payment methods do you accept?',
+    answer: 'We accept cash, bank transfer, and all major credit and debit cards for your convenience. Payment is due upon completion of the work.',
+  },
+  {
+    question: 'How can I prevent my drains from blocking?',
+    answer: 'To help prevent blocked drains: avoid pouring cooking fats and oils down the sink (let them cool and dispose of them in the bin), use drain guards to catch hair and food debris, never flush wet wipes, cotton buds, or sanitary products, run hot water down the sink after washing up, and consider having your drains professionally cleaned annually.',
+  },
+  {
+    question: 'What should I do if I have a sewage leak or flooding?',
+    answer: `Sewage leaks and flooding are considered emergencies. Call us immediately on <a href="${brand.phoneHref}" class="text-primary hover:underline">${brand.phone}</a> for 24/7 emergency assistance. In the meantime, avoid contact with the sewage water, keep children and pets away from the affected area, turn off any water appliances if safe to do so, and do not attempt to unblock the drain yourself.`,
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer.replace(/<[^>]*>/g, '') },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs} schemas={[faqSchema]}>
+  <Breadcrumbs items={breadcrumbs} />
+
+  <Hero
+    title="Frequently Asked Questions"
+    subtitle="Find answers to common questions about our drainage services in Swindon."
+    compact
+    showCta={false}
+  />
+
+  <!-- FAQ Intro Content -->
+  {pageContent && (
+    <section class="section-padding">
+      <div class="container-narrow mx-auto max-w-3xl">
+        <div class="prose prose-lg mx-auto text-gray-700">
+          <Fragment set:html={pageContent} />
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- FAQ Accordion -->
+  <section class={`section-padding ${pageContent ? 'bg-gray-50' : ''}`}>
+    <div class="container-narrow mx-auto max-w-3xl">
+      <h2 class="text-center text-3xl font-bold text-accent">Your Questions Answered</h2>
+      <p class="mt-3 text-center text-gray-600">
+        Can't find what you're looking for? Call us on
+        <a href={brand.phoneHref} class="text-primary font-medium hover:underline">{brand.phone}</a>
+        or <a href="/contact/" class="text-primary font-medium hover:underline">send us a message</a>.
+      </p>
+      <div class="mt-8">
+        <FAQAccordion faqs={faqs} />
+      </div>
+    </div>
+  </section>
+
+  <LeadForm sourcePage="/faq/" />
+</BaseLayout>

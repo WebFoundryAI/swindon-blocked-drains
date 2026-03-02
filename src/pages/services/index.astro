@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import { services } from '../../config/services';
+import contentData from '../../data/ai-content.json';
+
+const content = contentData as Record<string, string>;
+const breadcrumbs = [{ name: 'Services', url: '/services/' }];
+---
+
+<BaseLayout
+  title="Drain Services Swindon | All Services | 01793 487489"
+  description="Complete range of drain services in Swindon: unblocking, CCTV surveys, jetting, emergency services & repairs. No call-out charge. Call 01793 487489."
+  breadcrumbs={breadcrumbs}
+>
+  <Breadcrumbs items={breadcrumbs} />
+  <Hero title="Our Drain Services" subtitle="Professional drainage solutions for every situation" compact />
+
+  <section class="section-padding">
+    <div class="container-narrow mx-auto">
+      {content['services:overview'] && (
+        <div class="prose prose-lg mx-auto mb-12 max-w-3xl text-gray-700">
+          <Fragment set:html={content['services:overview']} />
+        </div>
+      )}
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map(s => <ServiceCard service={s} />)}
+      </div>
+    </div>
+  </section>
+
+  <LeadForm sourcePage="/services/" />
+</BaseLayout>

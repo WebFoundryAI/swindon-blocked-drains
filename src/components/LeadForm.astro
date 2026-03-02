@@ -1,0 +1,123 @@
+---
+import { brand } from '../config/brand';
+import { services } from '../config/services';
+import { locations } from '../config/locations';
+
+interface Props {
+  sourcePage?: string;
+  preselectedService?: string;
+  preselectedLocation?: string;
+}
+
+const { sourcePage = '/', preselectedService = '', preselectedLocation = '' } = Astro.props;
+---
+
+<section id="contact-form" class="section-padding bg-gray-50">
+  <div class="container-narrow mx-auto max-w-2xl">
+    <h2 class="text-center text-3xl font-bold text-accent">Get a Free Quote</h2>
+    <p class="mt-2 text-center text-gray-600">Fill in the form below and we'll get back to you as soon as possible.</p>
+
+    <form id="lead-form" class="mt-8 space-y-4 rounded-xl bg-white p-6 shadow-lg sm:p-8" novalidate>
+      <input type="hidden" name="source_page" value={sourcePage} />
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-700">Full Name *</label>
+          <input type="text" id="name" name="name" required class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-primary focus:ring-primary" placeholder="John Smith" />
+        </div>
+        <div>
+          <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-primary focus:ring-primary" placeholder="07700 900000" />
+        </div>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">Email Address *</label>
+          <input type="email" id="email" name="email" required class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-primary focus:ring-primary" placeholder="john@example.com" />
+        </div>
+        <div>
+          <label for="postcode" class="block text-sm font-medium text-gray-700">Postcode *</label>
+          <input type="text" id="postcode" name="postcode" required class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-primary focus:ring-primary" placeholder="SN1 1AA" />
+        </div>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <label for="service" class="block text-sm font-medium text-gray-700">Service Required *</label>
+          <select id="service" name="service" required class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-primary focus:ring-primary">
+            <option value="">Select a service</option>
+            {services.map(s => (
+              <option value={s.slug} selected={s.slug === preselectedService}>{s.name}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label for="location" class="block text-sm font-medium text-gray-700">Your Area *</label>
+          <select id="location" name="location" required class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-primary focus:ring-primary">
+            <option value="">Select your area</option>
+            {locations.map(l => (
+              <option value={l.slug} selected={l.slug === preselectedLocation}>{l.name}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <label for="message" class="block text-sm font-medium text-gray-700">Message (Optional)</label>
+        <textarea id="message" name="message" rows="3" class="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-3 text-gray-900 focus:border-primary focus:ring-primary" placeholder="Describe your drainage issue..."></textarea>
+      </div>
+
+      <button type="submit" class="btn-cta w-full">Send Enquiry</button>
+
+      <div id="form-status" class="hidden rounded-lg p-4 text-center text-sm font-medium"></div>
+
+      <p class="text-center text-xs text-gray-500">
+        Or call us directly on <a href={brand.phoneHref} class="text-primary font-medium hover:underline">{brand.phone}</a>
+      </p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const form = document.getElementById('lead-form') as HTMLFormElement;
+  const status = document.getElementById('form-status') as HTMLDivElement;
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const data = Object.fromEntries(new FormData(form));
+
+    // Basic validation
+    if (!data.name || !data.phone || !data.email || !data.postcode || !data.service || !data.location) {
+      status.className = 'rounded-lg p-4 text-center text-sm font-medium bg-red-50 text-red-700';
+      status.textContent = 'Please fill in all required fields.';
+      return;
+    }
+
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+
+    try {
+      const res = await fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        status.className = 'rounded-lg p-4 text-center text-sm font-medium bg-green-50 text-green-700';
+        status.textContent = 'Thank you! We\'ll be in touch shortly.';
+        form.reset();
+      } else {
+        throw new Error('Failed to submit');
+      }
+    } catch {
+      status.className = 'rounded-lg p-4 text-center text-sm font-medium bg-red-50 text-red-700';
+      status.textContent = 'Sorry, something went wrong. Please call us instead.';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Send Enquiry';
+    }
+  });
+</script>

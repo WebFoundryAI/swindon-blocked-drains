@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import LocationCard from '../../components/LocationCard.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import { locations } from '../../config/locations';
+
+const breadcrumbs = [{ name: 'Areas We Cover', url: '/locations/' }];
+---
+
+<BaseLayout
+  title="Areas We Cover | Blocked Drains Swindon | 01793 487489"
+  description="Drain unblocking services across Swindon, Royal Wootton Bassett, Highworth, Purton, Cricklade & Wroughton. 24/7 emergency response. Call 01793 487489."
+  breadcrumbs={breadcrumbs}
+>
+  <Breadcrumbs items={breadcrumbs} />
+  <Hero title="Areas We Cover" subtitle="Professional drain services across Swindon and the surrounding Wiltshire area" compact />
+
+  <section class="section-padding">
+    <div class="container-narrow mx-auto">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {locations.map(l => <LocationCard location={l} />)}
+      </div>
+    </div>
+  </section>
+
+  <LeadForm sourcePage="/locations/" />
+</BaseLayout>

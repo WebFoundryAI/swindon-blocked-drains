@@ -1,0 +1,64 @@
+---
+import { brand } from '../config/brand';
+import { services } from '../config/services';
+import { locations } from '../config/locations';
+---
+
+<footer class="bg-accent text-gray-300">
+  <div class="container-narrow mx-auto px-4 py-12">
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white font-bold">BD</div>
+          <span class="text-lg font-bold text-white">{brand.name}</span>
+        </div>
+        <p class="text-sm mb-4">Professional drain services across Swindon and Wiltshire. Available 24/7 for emergencies.</p>
+        <a href={brand.phoneHref} class="text-secondary font-bold text-lg hover:text-white transition-colors">{brand.phone}</a>
+        <p class="text-sm mt-2">
+          <a href={`mailto:${brand.email}`} class="hover:text-white transition-colors">{brand.email}</a>
+        </p>
+      </div>
+
+      <!-- Services -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">Our Services</h3>
+        <ul class="space-y-2 text-sm">
+          {services.map(s => (
+            <li><a href={`/services/${s.slug}/`} class="hover:text-white transition-colors">{s.name}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Areas -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">Areas We Cover</h3>
+        <ul class="space-y-2 text-sm">
+          {locations.map(l => (
+            <li><a href={`/locations/${l.slug}/`} class="hover:text-white transition-colors">{l.name}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h3 class="text-white font-semibold mb-4">Quick Links</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/about/" class="hover:text-white transition-colors">About Us</a></li>
+          <li><a href="/contact/" class="hover:text-white transition-colors">Contact</a></li>
+          <li><a href="/blog/" class="hover:text-white transition-colors">Blog</a></li>
+          <li><a href="/faq/" class="hover:text-white transition-colors">FAQ</a></li>
+          <li><a href="/sitemap/" class="hover:text-white transition-colors">Sitemap</a></li>
+          <li><a href="/privacy/" class="hover:text-white transition-colors">Privacy Policy</a></li>
+          <li><a href="/terms/" class="hover:text-white transition-colors">Terms & Conditions</a></li>
+          <li><a href="/cookies/" class="hover:text-white transition-colors">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 border-t border-gray-700 pt-8 text-center text-sm">
+      <p>&copy; {new Date().getFullYear()} {brand.name}. All rights reserved.</p>
+      <p class="mt-1 text-gray-500">Professional drainage services in Swindon and surrounding areas.</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,106 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { brand } from '../config/brand';
+import { services } from '../config/services';
+import { locations } from '../config/locations';
+
+const title = `Sitemap | ${brand.name}`;
+const description = `Full HTML sitemap for ${brand.name}. Browse all our drainage services, coverage areas, and useful pages.`;
+
+const breadcrumbs = [
+  { name: 'Sitemap', url: '/sitemap/' },
+];
+---
+
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
+  <Breadcrumbs items={breadcrumbs} />
+
+  <Hero
+    title="Sitemap"
+    subtitle="Browse all pages on our website."
+    compact
+    showCta={false}
+  />
+
+  <section class="section-padding">
+    <div class="container-narrow mx-auto max-w-4xl">
+
+      <!-- Main Pages -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-accent border-b border-gray-200 pb-3 mb-4">Main Pages</h2>
+        <ul class="space-y-2 text-gray-700">
+          <li><a href="/" class="text-primary hover:underline">Home</a></li>
+          <li><a href="/about/" class="text-primary hover:underline">About Us</a></li>
+          <li><a href="/contact/" class="text-primary hover:underline">Contact Us</a></li>
+          <li><a href="/faq/" class="text-primary hover:underline">Frequently Asked Questions</a></li>
+          <li><a href="/blog/" class="text-primary hover:underline">Blog</a></li>
+        </ul>
+      </div>
+
+      <!-- Services -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-accent border-b border-gray-200 pb-3 mb-4">Our Services</h2>
+        <ul class="space-y-4 text-gray-700">
+          {services.map(service => (
+            <li>
+              <a href={`/${service.slug}/`} class="text-primary font-medium hover:underline text-lg">{service.name}</a>
+              {service.subServices.length > 0 && (
+                <ul class="mt-2 ml-6 space-y-1">
+                  {service.subServices.map(sub => (
+                    <li>
+                      <a href={`/${service.slug}/${sub.slug}/`} class="text-primary hover:underline">{sub.name}</a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Locations -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-accent border-b border-gray-200 pb-3 mb-4">Areas We Cover</h2>
+        <ul class="space-y-2 text-gray-700">
+          {locations.map(location => (
+            <li>
+              <a href={`/${location.slug}/`} class="text-primary hover:underline">{location.name}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Service + Location Combinations -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-accent border-b border-gray-200 pb-3 mb-4">Services by Location</h2>
+        {services.map(service => (
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold text-accent mb-2">{service.name}</h3>
+            <ul class="grid gap-1 sm:grid-cols-2 lg:grid-cols-3 text-gray-700">
+              {locations.map(location => (
+                <li>
+                  <a href={`/${service.slug}/${location.slug}/`} class="text-primary hover:underline text-sm">
+                    {service.name} in {location.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      <!-- Legal Pages -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-bold text-accent border-b border-gray-200 pb-3 mb-4">Legal</h2>
+        <ul class="space-y-2 text-gray-700">
+          <li><a href="/privacy/" class="text-primary hover:underline">Privacy Policy</a></li>
+          <li><a href="/terms/" class="text-primary hover:underline">Terms &amp; Conditions</a></li>
+          <li><a href="/cookies/" class="text-primary hover:underline">Cookie Policy</a></li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

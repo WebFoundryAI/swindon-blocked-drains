@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { brand } from '../../config/brand';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort((a, b) =>
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+const breadcrumbs = [{ name: 'Blog', url: '/blog/' }];
+---
+
+<BaseLayout
+  title="Blog | Drain Tips & Advice | Blocked Drains Swindon"
+  description="Helpful drain maintenance tips, advice, and news from Blocked Drains Swindon. Keep your drains flowing with expert guidance."
+  breadcrumbs={breadcrumbs}
+>
+  <Breadcrumbs items={breadcrumbs} />
+  <Hero title="Drain Tips & Advice" subtitle="Expert guidance to keep your drains flowing" compact />
+
+  <section class="section-padding">
+    <div class="container-narrow mx-auto max-w-4xl">
+      <div class="grid gap-8">
+        {posts.map(post => (
+          <article class="group rounded-xl border border-gray-200 bg-white p-6 transition-all hover:border-primary hover:shadow-md sm:p-8">
+            <a href={`/blog/${post.data.slug}/`}>
+              <time class="text-sm text-gray-500" datetime={String(post.data.date)}>
+                {new Date(post.data.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </time>
+              <h2 class="mt-2 text-2xl font-bold text-accent group-hover:text-primary transition-colors">{post.data.title}</h2>
+              {post.data.excerpt && (
+                <p class="mt-3 text-gray-600">{post.data.excerpt}</p>
+              )}
+              <span class="mt-4 inline-flex items-center text-sm font-medium text-primary">
+                Read more
+                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+              </span>
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

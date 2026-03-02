@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { brand } from '../config/brand';
+
+const title = `Terms & Conditions | ${brand.name}`;
+const description = `Terms and conditions for ${brand.name}. Read our full terms of service for drainage and plumbing services in Swindon, Wiltshire.`;
+
+const breadcrumbs = [
+  { name: 'Terms & Conditions', url: '/terms/' },
+];
+---
+
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
+  <Breadcrumbs items={breadcrumbs} />
+
+  <Hero
+    title="Terms & Conditions"
+    compact
+    showCta={false}
+  />
+
+  <section class="section-padding">
+    <div class="container-narrow mx-auto max-w-3xl">
+      <div class="prose prose-lg mx-auto text-gray-700">
+
+        <p class="text-sm text-gray-500">Last updated: 1 March 2026</p>
+
+        <h2>1. Introduction</h2>
+        <p>These terms and conditions (&ldquo;Terms&rdquo;) govern your use of the website at <a href={brand.url}>{brand.domain}</a> and the drainage services provided by {brand.name} (&ldquo;we&rdquo;, &ldquo;us&rdquo;, &ldquo;our&rdquo;). By using our website or engaging our services, you agree to be bound by these Terms.</p>
+        <p>Please read these Terms carefully before using our website or services. If you do not agree with any part of these Terms, you should not use our website or services.</p>
+
+        <h2>2. About Us</h2>
+        <p>{brand.name} is a drainage services company based in Swindon, Wiltshire. We provide drain unblocking, CCTV drain surveys, high-pressure drain jetting, emergency drain services, and drain repairs to domestic and commercial customers across Swindon and the surrounding area.</p>
+        <ul>
+          <li><strong>Email:</strong> <a href={`mailto:${brand.email}`}>{brand.email}</a></li>
+          <li><strong>Phone:</strong> <a href={brand.phoneHref}>{brand.phone}</a></li>
+        </ul>
+
+        <h2>3. Services</h2>
+        <h3>3.1 Quotations</h3>
+        <p>All quotations provided by us are valid for 30 days from the date of issue unless otherwise stated. Quotations are based on the information provided to us and may be subject to revision if the scope of work changes or additional issues are discovered during the course of the work.</p>
+
+        <h3>3.2 Acceptance of Work</h3>
+        <p>A contract is formed between you and us when you accept our quotation (verbally, in writing, or by instructing us to proceed) and we confirm the booking. For emergency work, the contract is formed when we attend the property and you agree to the proposed work and charges.</p>
+
+        <h3>3.3 Access and Permissions</h3>
+        <p>You are responsible for providing safe and reasonable access to the drainage system and the area where work is to be carried out. You must ensure that you have the legal authority to authorise work on the property and its drainage system. If you are a tenant, you should obtain permission from your landlord or property owner before instructing us.</p>
+
+        <h3>3.4 Completion of Work</h3>
+        <p>We will carry out all work with reasonable skill and care, in accordance with industry standards and best practices. We will endeavour to complete the work within the estimated timescale; however, timescales are estimates only and are not guaranteed. Delays may occur due to unforeseen complications, weather conditions, or the need for additional work.</p>
+
+        <h2>4. Pricing and Payment</h2>
+        <h3>4.1 Pricing</h3>
+        <p>All prices quoted are inclusive of VAT where applicable. We will always agree the price with you before commencing work. If additional work is required beyond the original scope, we will inform you and obtain your agreement before proceeding.</p>
+
+        <h3>4.2 Call-Out Charges</h3>
+        <p>We do not charge a call-out fee. You only pay for the work carried out.</p>
+
+        <h3>4.3 Payment Terms</h3>
+        <p>Payment is due upon completion of the work unless otherwise agreed in writing. We accept payment by cash, bank transfer, and all major credit and debit cards.</p>
+
+        <h3>4.4 Late Payment</h3>
+        <p>If payment is not received by the due date, we reserve the right to charge interest on the overdue amount at a rate of 4% above the Bank of England base rate, in accordance with the Late Payment of Commercial Debts (Interest) Act 1998. We also reserve the right to recover reasonable costs of collecting overdue payments.</p>
+
+        <h2>5. Cancellations and Cooling-Off Period</h2>
+        <h3>5.1 Your Right to Cancel</h3>
+        <p>If you are a consumer, you have the right to cancel a contract made at a distance or off-premises within 14 days of the contract being formed, in accordance with the Consumer Contracts (Information, Cancellation and Additional Charges) Regulations 2013.</p>
+
+        <h3>5.2 Emergency Work Exception</h3>
+        <p>If you request that we commence emergency work within the 14-day cooling-off period, you acknowledge that you may lose your right to cancel once the work has been completed. We will inform you of this before beginning emergency work.</p>
+
+        <h3>5.3 Cancellation by You</h3>
+        <p>If you wish to cancel a scheduled appointment, we ask that you give us at least 24 hours&rsquo; notice. Cancellations made with less than 24 hours&rsquo; notice may be subject to a reasonable cancellation fee to cover our costs.</p>
+
+        <h3>5.4 Cancellation by Us</h3>
+        <p>We reserve the right to cancel or reschedule a booking if circumstances beyond our reasonable control prevent us from carrying out the work (for example, severe weather, illness, or vehicle breakdown). In such cases, we will contact you as soon as possible to arrange an alternative date.</p>
+
+        <h2>6. Warranties and Guarantees</h2>
+        <p>We guarantee the quality of our workmanship. If a blockage we have cleared recurs within 28 days and is caused by the same issue at the same location, we will return and re-clear it free of charge. This guarantee does not apply where the recurrence is caused by a different issue, structural damage, third-party interference, or misuse of the drainage system.</p>
+        <p>For drain repair work, we provide a guarantee in line with the manufacturer&rsquo;s warranty on any materials used. Details will be provided at the time of the work.</p>
+
+        <h2>7. Liability</h2>
+        <h3>7.1 Our Liability</h3>
+        <p>We carry comprehensive public liability insurance. Our liability for any loss or damage arising from our services is limited to the cost of the work undertaken, except in cases of death or personal injury caused by our negligence, fraud or fraudulent misrepresentation, or any other liability that cannot be excluded or limited by law.</p>
+
+        <h3>7.2 Exclusions</h3>
+        <p>We shall not be liable for:</p>
+        <ul>
+          <li>Pre-existing defects or damage to your drainage system that are not caused by our work</li>
+          <li>Damage caused by third parties, tree root ingress, ground movement, or other natural causes</li>
+          <li>Loss of profit, business, revenue, or anticipated savings</li>
+          <li>Indirect or consequential loss or damage</li>
+          <li>Damage to drains, pipes, or fittings that are in poor condition, corroded, or fragile, where such damage occurs despite reasonable care being taken</li>
+        </ul>
+
+        <h3>7.3 Your Responsibility</h3>
+        <p>You are responsible for ensuring that you have provided accurate information about the location and nature of the drainage issue. You must inform us of any known hazards, underground services, or structural issues at the property.</p>
+
+        <h2>8. Website Use</h2>
+        <h3>8.1 Website Content</h3>
+        <p>The content on our website is provided for general information purposes only. While we make every effort to ensure that the information is accurate and up to date, we make no representations or warranties of any kind, express or implied, about the completeness, accuracy, reliability, or suitability of the information.</p>
+
+        <h3>8.2 Intellectual Property</h3>
+        <p>All content on this website, including text, images, logos, and design, is the property of {brand.name} or its licensors and is protected by copyright and intellectual property laws. You may not reproduce, distribute, or use any content from this website without our prior written consent.</p>
+
+        <h3>8.3 Third-Party Links</h3>
+        <p>Our website may contain links to third-party websites. We have no control over the content or availability of these sites and accept no responsibility for them.</p>
+
+        <h2>9. Force Majeure</h2>
+        <p>We shall not be liable for any failure or delay in performing our obligations where such failure or delay results from circumstances beyond our reasonable control, including but not limited to severe weather, natural disasters, pandemics, government restrictions, industrial action, or interruption to utility services.</p>
+
+        <h2>10. Complaints</h2>
+        <p>We take all complaints seriously and aim to resolve them promptly. If you have a complaint about our services, please contact us:</p>
+        <ul>
+          <li><strong>Email:</strong> <a href={`mailto:${brand.email}`}>{brand.email}</a></li>
+          <li><strong>Phone:</strong> <a href={brand.phoneHref}>{brand.phone}</a></li>
+        </ul>
+        <p>We will acknowledge your complaint within 2 working days and aim to provide a full response within 14 working days.</p>
+
+        <h2>11. Governing Law</h2>
+        <p>These Terms are governed by and construed in accordance with the laws of England and Wales. Any disputes arising from these Terms or our services shall be subject to the exclusive jurisdiction of the courts of England and Wales.</p>
+
+        <h2>12. Severability</h2>
+        <p>If any provision of these Terms is found to be invalid, illegal, or unenforceable by a court of competent jurisdiction, the remaining provisions shall continue in full force and effect.</p>
+
+        <h2>13. Changes to These Terms</h2>
+        <p>We reserve the right to update or amend these Terms at any time. Any changes will be posted on this page with an updated revision date. Your continued use of our website or services after any changes constitutes acceptance of the revised Terms.</p>
+
+        <h2>14. Contact Us</h2>
+        <p>If you have any questions about these Terms, please contact us:</p>
+        <ul>
+          <li><strong>Email:</strong> <a href={`mailto:${brand.email}`}>{brand.email}</a></li>
+          <li><strong>Phone:</strong> <a href={brand.phoneHref}>{brand.phone}</a></li>
+          <li><strong>Address:</strong> Swindon, Wiltshire</li>
+        </ul>
+
+      </div>
+    </div>
+  </section>
+</BaseLayout>

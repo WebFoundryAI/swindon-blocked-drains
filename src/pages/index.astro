@@ -1,0 +1,81 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import TrustBadges from '../components/TrustBadges.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import Guarantees from '../components/Guarantees.astro';
+import CoverageArea from '../components/CoverageArea.astro';
+import LeadForm from '../components/LeadForm.astro';
+import PopularLinks from '../components/PopularLinks.astro';
+import FAQAccordion from '../components/FAQAccordion.astro';
+import { brand } from '../config/brand';
+import { services } from '../config/services';
+import { homeTitle, homeDescription } from '../config/seo';
+import contentData from '../data/ai-content.json';
+const content = contentData as Record<string, string>;
+
+const faqs = [
+  { question: 'How quickly can you respond to an emergency?', answer: 'We aim to be with you within 1 hour for emergency call-outs across Swindon and surrounding areas. Our engineers are available 24 hours a day, 7 days a week.' },
+  { question: 'Do you charge a call-out fee?', answer: 'No, we do not charge a call-out fee. You only pay for the work carried out. We provide a clear quote before starting any job.' },
+  { question: 'Are your drainage engineers insured?', answer: 'Yes, all our engineers are fully insured and trained to the highest industry standards. You can have complete peace of mind when we work on your property.' },
+  { question: 'What areas do you cover?', answer: 'We cover Swindon and the surrounding Wiltshire area, including Royal Wootton Bassett, Highworth, Purton, Cricklade, and Wroughton.' },
+  { question: 'What payment methods do you accept?', answer: 'We accept cash, bank transfer, and all major credit and debit cards for your convenience.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
+---
+
+<BaseLayout title={homeTitle()} description={homeDescription()} schemas={[faqSchema]}>
+  <Hero
+    title="Blocked Drains in Swindon?"
+    subtitle="24/7 emergency drain unblocking, CCTV surveys, jetting & repairs. No call-out charge. Local, fully insured engineers."
+  />
+
+  <TrustBadges />
+
+  <!-- Intro Content -->
+  <section class="section-padding">
+    <div class="container-narrow mx-auto max-w-3xl">
+      <div class="prose prose-lg mx-auto text-gray-700">
+        <Fragment set:html={content['home:intro'] || ''} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-narrow mx-auto">
+      <h2 class="text-center text-3xl font-bold text-accent">Our Drain Services</h2>
+      <p class="mx-auto mt-3 max-w-2xl text-center text-gray-600">From emergency blockages to planned CCTV surveys, we handle every drainage challenge.</p>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map(s => <ServiceCard service={s} />)}
+      </div>
+    </div>
+  </section>
+
+  <Guarantees />
+
+  <CoverageArea />
+
+  <!-- FAQ -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-narrow mx-auto max-w-3xl">
+      <h2 class="text-center text-3xl font-bold text-accent">Frequently Asked Questions</h2>
+      <div class="mt-8">
+        <FAQAccordion faqs={faqs} />
+      </div>
+    </div>
+  </section>
+
+  <PopularLinks />
+
+  <LeadForm sourcePage="/" />
+</BaseLayout>

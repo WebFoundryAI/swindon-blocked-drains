@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import Hero from '../../../../components/Hero.astro';
+import Breadcrumbs from '../../../../components/Breadcrumbs.astro';
+import LeadForm from '../../../../components/LeadForm.astro';
+import { brand } from '../../../../config/brand';
+import { services } from '../../../../config/services';
+import { locations } from '../../../../config/locations';
+import { subServiceInLocationTitle, subServiceInLocationDescription } from '../../../../config/seo';
+import contentData from '../../../../data/ai-content.json';
+const content = contentData as Record<string, string>;
+
+export function getStaticPaths() {
+  return locations.flatMap(l =>
+    services.flatMap(s =>
+      s.subServices.map(sub => ({
+        params: { location: l.slug, service: s.slug, subservice: sub.slug },
+        props: { location: l, service: s, subService: sub },
+      }))
+    )
+  );
+}
+
+const { location, service, subService } = Astro.props;
+const pageContent = content[`subServiceInLocation:${location.slug}:${service.slug}:${subService.slug}`] || '';
+const breadcrumbs = [
+  { name: 'Areas We Cover', url: '/locations/' },
+  { name: location.name, url: `/locations/${location.slug}/` },
+  { name: service.name, url: `/locations/${location.slug}/${service.slug}/` },
+  { name: subService.name, url: `/locations/${location.slug}/${service.slug}/${subService.slug}/` },
+];
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: `${subService.name} in ${location.name}`,
+  description: `Professional ${subService.name.toLowerCase()} services in ${location.name}.`,
+  provider: {
+    '@type': 'Plumber',
+    name: brand.name,
+    telephone: brand.phone,
+  },
+  areaServed: {
+    '@type': 'Place',
+    name: location.name,
+  },
+};
+---
+
+<BaseLayout
+  title={subServiceInLocationTitle(subService, service, location)}
+  description={subServiceInLocationDescription(subService, service, location)}
+  breadcrumbs={breadcrumbs}
+  schemas={[serviceSchema]}
+>
+  <Breadcrumbs items={breadcrumbs} />
+  <Hero title={`${subService.name} in ${location.name}`} subtitle={`Expert ${subService.name.toLowerCase()} services in ${location.name} from ${brand.name}`} compact />
+
+  <section class="section-padding">
+    <div class="container-narrow mx-auto">
+      <div class="grid gap-12 lg:grid-cols-3">
+        <div class="lg:col-span-2">
+          {pageContent && (
+            <div class="prose prose-lg max-w-none text-gray-700">
+              <Fragment set:html={pageContent} />
+            </div>
+          )}
+
+          <!-- Other sub-services in this location -->
+          <div class="mt-12">
+            <h2 class="text-2xl font-bold text-accent">Other {service.name} Services in {location.name}</h2>
+            <div class="mt-4 flex flex-wrap gap-3">
+              {service.subServices.filter(s => s.slug !== subService.slug).map(s => (
+                <a href={`/locations/${location.slug}/${service.slug}/${s.slug}/`} class="rounded-full border border-gray-200 px-4 py-2 text-sm hover:border-primary hover:text-primary transition-colors">
+                  {s.name} in {location.name}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <!-- Same sub-service in other locations -->
+          <div class="mt-12">
+            <h2 class="text-2xl font-bold text-accent">{subService.name} in Other Areas</h2>
+            <div class="mt-4 flex flex-wrap gap-3">
+              {locations.filter(l => l.slug !== location.slug).map(l => (
+                <a href={`/locations/${l.slug}/${service.slug}/${subService.slug}/`} class="rounded-full border border-gray-200 px-4 py-2 text-sm hover:border-primary hover:text-primary transition-colors">
+                  {subService.name} in {l.name}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <aside>
+          <div class="sticky top-28 space-y-6">
+            <div class="rounded-xl bg-primary p-6 text-white">
+              <h3 class="text-xl font-bold">Need Help in {location.name}?</h3>
+              <p class="mt-2 text-blue-100">Available 24/7 for emergencies</p>
+              <a href={brand.phoneHref} class="btn-cta mt-4 w-full text-center block">{brand.phone}</a>
+            </div>
+            <div class="rounded-xl border border-gray-200 p-6">
+              <h3 class="font-semibold text-accent">All Services in {location.name}</h3>
+              <ul class="mt-3 space-y-2">
+                {services.map(s => (
+                  <li>
+                    <a href={`/locations/${location.slug}/${s.slug}/`} class="text-sm text-gray-600 hover:text-primary transition-colors">
+                      {s.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <LeadForm sourcePage={`/locations/${location.slug}/${service.slug}/${subService.slug}/`} preselectedService={service.slug} preselectedLocation={location.slug} />
+</BaseLayout>

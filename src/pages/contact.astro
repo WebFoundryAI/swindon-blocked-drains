@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import LeadForm from '../components/LeadForm.astro';
+import { brand } from '../config/brand';
+
+const title = `Contact Us | ${brand.name} | ${brand.phone}`;
+const description = `Get in touch with ${brand.name}. Call ${brand.phone} for 24/7 emergency drain services in Swindon, or fill in our online contact form for a free quote.`;
+
+const breadcrumbs = [
+  { name: 'Contact Us', url: '/contact/' },
+];
+---
+
+<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
+  <Breadcrumbs items={breadcrumbs} />
+
+  <Hero
+    title="Contact Us"
+    subtitle="Get in touch for a free, no-obligation quote or 24/7 emergency assistance."
+    compact
+    showCta={false}
+  />
+
+  <!-- Contact Info Cards -->
+  <section class="section-padding">
+    <div class="container-narrow mx-auto">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+        <!-- Phone -->
+        <div class="rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-primary" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+            </svg>
+          </div>
+          <h2 class="mt-4 text-lg font-semibold text-accent">Call Us</h2>
+          <p class="mt-2 text-gray-600">Available 24 hours a day, 7 days a week for emergencies.</p>
+          <a href={brand.phoneHref} class="mt-4 inline-block text-xl font-bold text-primary hover:underline">
+            {brand.phone}
+          </a>
+        </div>
+
+        <!-- Email -->
+        <div class="rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-primary" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+            </svg>
+          </div>
+          <h2 class="mt-4 text-lg font-semibold text-accent">Email Us</h2>
+          <p class="mt-2 text-gray-600">Send us a message and we will respond promptly.</p>
+          <a href={`mailto:${brand.email}`} class="mt-4 inline-block text-lg font-bold text-primary hover:underline break-all">
+            {brand.email}
+          </a>
+        </div>
+
+        <!-- Service Area -->
+        <div class="rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm sm:col-span-2 lg:col-span-1">
+          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-primary" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+            </svg>
+          </div>
+          <h2 class="mt-4 text-lg font-semibold text-accent">Service Area</h2>
+          <p class="mt-2 text-gray-600">We cover Swindon and the wider Wiltshire area.</p>
+          <ul class="mt-4 text-sm text-gray-700 space-y-1">
+            <li>Swindon (Town Centre &amp; Old Town)</li>
+            <li>Royal Wootton Bassett</li>
+            <li>Highworth</li>
+            <li>Purton</li>
+            <li>Cricklade</li>
+            <li>Wroughton</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Opening Hours -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-narrow mx-auto max-w-2xl">
+      <h2 class="text-center text-3xl font-bold text-accent">Opening Hours</h2>
+      <p class="mt-2 text-center text-gray-600">We are available around the clock for emergencies.</p>
+      <div class="mt-8 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+        <table class="w-full text-left text-sm">
+          <tbody>
+            <tr class="border-b">
+              <td class="px-6 py-4 font-medium text-accent">Monday &ndash; Friday</td>
+              <td class="px-6 py-4 text-gray-600">07:00 &ndash; 22:00</td>
+            </tr>
+            <tr class="border-b">
+              <td class="px-6 py-4 font-medium text-accent">Saturday</td>
+              <td class="px-6 py-4 text-gray-600">08:00 &ndash; 20:00</td>
+            </tr>
+            <tr class="border-b">
+              <td class="px-6 py-4 font-medium text-accent">Sunday</td>
+              <td class="px-6 py-4 text-gray-600">09:00 &ndash; 18:00</td>
+            </tr>
+            <tr>
+              <td class="px-6 py-4 font-medium text-primary">Emergency Call-Outs</td>
+              <td class="px-6 py-4 font-medium text-primary">24/7 &ndash; 365 days a year</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <LeadForm sourcePage="/contact/" />
+</BaseLayout>

@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import { brand } from '../../config/brand';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map(post => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const breadcrumbs = [
+  { name: 'Blog', url: '/blog/' },
+  { name: post.data.title, url: `/blog/${post.data.slug}/` },
+];
+
+const blogSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: post.data.excerpt || '',
+  datePublished: String(post.data.date),
+  author: {
+    '@type': 'Organization',
+    name: brand.name,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: brand.name,
+    url: brand.url,
+  },
+};
+---
+
+<BaseLayout
+  title={`${post.data.title} | ${brand.name}`}
+  description={post.data.excerpt || `Read about ${post.data.title} from ${brand.name}.`}
+  breadcrumbs={breadcrumbs}
+  schemas={[blogSchema]}
+>
+  <Breadcrumbs items={breadcrumbs} />
+
+  <article class="section-padding">
+    <div class="container-narrow mx-auto max-w-3xl">
+      <header class="mb-8">
+        <time class="text-sm text-gray-500" datetime={String(post.data.date)}>
+          {new Date(post.data.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        <h1 class="mt-2 text-4xl font-bold text-accent">{post.data.title}</h1>
+        {post.data.excerpt && (
+          <p class="mt-4 text-lg text-gray-600">{post.data.excerpt}</p>
+        )}
+      </header>
+
+      <div class="prose prose-lg max-w-none text-gray-700">
+        <Content />
+      </div>
+
+      <div class="mt-12 border-t pt-8">
+        <a href="/blog/" class="inline-flex items-center text-primary font-medium hover:underline">
+          <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
+          Back to all articles
+        </a>
+      </div>
+    </div>
+  </article>
+
+  <LeadForm sourcePage={`/blog/${post.data.slug}/`} />
+</BaseLayout>

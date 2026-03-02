@@ -1,93 +1,51 @@
-import { BRAND } from "./brand";
-import { LocationConfig, PRIMARY_LOCATION } from "./locations";
-import { ServiceConfig } from "./services";
+import { brand } from './brand';
+import type { Service, SubService } from './services';
+import type { Location } from './locations';
 
-export interface SEOMetadata {
-  title: string;
-  description: string;
-  canonicalUrl?: string;
-  noIndex?: boolean;
+export function homeTitle(): string {
+  return `Blocked Drains Swindon | 24/7 Drain Unblocking | ${brand.phone}`;
 }
 
-export function getHomeSEO(): SEOMetadata {
-  return {
-    title: `${BRAND.brandName} | Expert Blocked Drain Services in ${BRAND.primaryLocation}`,
-    description: `Professional drain unblocking and CCTV surveys in ${BRAND.serviceAreaLabel}. 24/7 emergency service, no call-out fee, fixed pricing. Call ${BRAND.phone}`,
-    canonicalUrl: "/",
-  };
+export function homeDescription(): string {
+  return 'Blocked drains in Swindon? 24/7 emergency drain unblocking, CCTV surveys, jetting & repairs. No call-out charge. Local engineers. Call 01793 487489.';
 }
 
-export function getServicesSEO(): SEOMetadata {
-  return {
-    title: `Drainage Services | ${BRAND.brandName}`,
-    description: `Complete drainage services in ${BRAND.serviceAreaLabel}. Blocked drains, CCTV surveys, drain jetting, and 24/7 emergency callouts. No call-out fee.`,
-    canonicalUrl: "/services",
-  };
+export function serviceTitle(service: Service): string {
+  return `${service.name} Swindon | ${brand.name} | ${brand.phone}`;
 }
 
-export function getServiceSEO(service: ServiceConfig): SEOMetadata {
-  return {
-    title: `${service.name} | ${BRAND.brandName}`,
-    description: `${service.description} Available across ${BRAND.serviceAreaLabel}. Call ${BRAND.phone} for fast response.`,
-    canonicalUrl: `/services/${service.slug}`,
-  };
+export function serviceDescription(service: Service): string {
+  return `Professional ${service.name.toLowerCase()} services in Swindon. Fast response, no call-out charge. Fully insured local engineers. Call ${brand.phone}.`;
 }
 
-export function getLocationsSEO(): SEOMetadata {
-  return {
-    title: `Areas We Cover | ${BRAND.brandName}`,
-    description: `${BRAND.brandName} provides expert drainage services throughout ${BRAND.serviceAreaLabel}. Find your local area for fast, professional drain unblocking.`,
-    canonicalUrl: "/locations",
-  };
+export function subServiceTitle(service: Service, sub: SubService): string {
+  return `${sub.name} Swindon | ${service.name} | ${brand.phone}`;
 }
 
-export function getLocationSEO(location: LocationConfig): SEOMetadata {
-  return {
-    title: `Drain Services in ${location.name} | ${BRAND.brandName}`,
-    description: `Professional drainage services in ${location.name}, ${location.countyOrRegion}. 24/7 emergency drain unblocking, CCTV surveys, and repairs. Call ${BRAND.phone}`,
-    canonicalUrl: `/locations/${location.slug}`,
-  };
+export function subServiceDescription(service: Service, sub: SubService): string {
+  return `Expert ${sub.name.toLowerCase()} services in Swindon. Part of our ${service.name.toLowerCase()} solutions. No call-out charge. Call ${brand.phone}.`;
 }
 
-export function getServiceInLocationSEO(
-  service: ServiceConfig,
-  location: LocationConfig
-): SEOMetadata {
-  return {
-    title: `${service.name} in ${location.name} | ${BRAND.brandName}`,
-    description: `Professional ${service.name.toLowerCase()} services in ${location.name}, ${location.countyOrRegion}. Fast response, fixed pricing. Call ${BRAND.phone}`,
-    canonicalUrl: `/locations/${location.slug}/${service.slug}`,
-  };
+export function locationTitle(location: Location): string {
+  return `Blocked Drains ${location.name} | 24/7 Drain Services | ${brand.phone}`;
 }
 
-export function getAboutSEO(): SEOMetadata {
-  return {
-    title: `About Us | ${BRAND.brandName}`,
-    description: `Learn about ${BRAND.brandName}, your trusted drainage specialists in ${BRAND.serviceAreaLabel}. Reliable, professional, and available 24/7.`,
-    canonicalUrl: "/about",
-  };
+export function locationDescription(location: Location): string {
+  return `Blocked drains in ${location.name}? Local drain unblocking, CCTV surveys & repairs. 24/7 emergency service. No call-out charge. Call ${brand.phone}.`;
 }
 
-export function getContactSEO(): SEOMetadata {
-  return {
-    title: `Contact Us | ${BRAND.brandName}`,
-    description: `Get in touch with ${BRAND.brandName} for drainage services in ${BRAND.serviceAreaLabel}. Call ${BRAND.phone} or use our contact form.`,
-    canonicalUrl: "/contact",
-  };
+export function serviceInLocationTitle(service: Service, location: Location): string {
+  return `${service.name} ${location.name} | ${brand.phone}`;
 }
 
-export function getFAQSEO(): SEOMetadata {
-  return {
-    title: `FAQs | ${BRAND.brandName}`,
-    description: `Common questions about drainage services in ${BRAND.serviceAreaLabel}. Find answers about blocked drains, costs, and emergency callouts.`,
-    canonicalUrl: "/faq",
-  };
+export function serviceInLocationDescription(service: Service, location: Location): string {
+  return `${service.name} in ${location.name}. Fast, reliable service from local drainage engineers. No call-out charge. Call ${brand.phone}.`;
 }
 
-export function getBlogSEO(): SEOMetadata {
-  return {
-    title: `Drainage Tips & Advice | ${BRAND.brandName} Blog`,
-    description: `Expert drainage advice, tips, and guides from ${BRAND.brandName}. Learn how to prevent blocked drains and maintain your drainage system.`,
-    canonicalUrl: "/blog",
-  };
+export function subServiceInLocationTitle(sub: SubService, service: Service, location: Location): string {
+  return `${sub.name} ${location.name} | ${service.name} | ${brand.phone}`;
+}
+
+export function subServiceInLocationDescription(sub: SubService, service: Service, location: Location): string {
+  return `${sub.name} services in ${location.name}. Expert ${service.name.toLowerCase()} solutions. No call-out charge. Call ${brand.phone}.`;
 }

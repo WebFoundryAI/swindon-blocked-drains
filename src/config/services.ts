@@ -1,221 +1,84 @@
-export type SubServiceConfig = {
+export interface SubService {
   slug: string;
   name: string;
-  shortLabel?: string;
-  description: string;
-};
+  shortName: string;
+}
 
-export type ServiceConfig = {
+export interface Service {
   slug: string;
   name: string;
-  shortLabel: string;
+  shortName: string;
   description: string;
   icon: string;
-  subServices?: SubServiceConfig[];
-  semanticTags?: {
-    problemType?: string[];
-    serviceType?: string[];
-    propertyType?: string[];
-    riskFactors?: string[];
-  };
-};
+  subServices: SubService[];
+}
 
-export const SERVICES: ServiceConfig[] = [
+export const services: Service[] = [
   {
-    slug: "blocked-drains",
-    name: "Blocked Drains",
-    shortLabel: "Blocked drains cleared fast",
-    description: "Professional drain unblocking service using the latest equipment. We clear all types of blockages quickly and efficiently.",
-    icon: "🚿",
+    slug: 'blocked-drains',
+    name: 'Blocked Drains',
+    shortName: 'Blocked Drains',
+    description: 'Fast, effective solutions for all types of blocked drains in domestic and commercial properties.',
+    icon: '🚿',
     subServices: [
-      {
-        slug: "blocked-toilet",
-        name: "Blocked Toilet",
-        shortLabel: "Toilet unblocking",
-        description: "Fast and effective toilet unblocking service for domestic and commercial properties.",
-      },
-      {
-        slug: "blocked-sink",
-        name: "Blocked Sink",
-        shortLabel: "Sink unblocking",
-        description: "Professional sink unblocking for kitchen and bathroom sinks.",
-      },
-      {
-        slug: "blocked-bath",
-        name: "Blocked Bath & Shower",
-        shortLabel: "Bath and shower unblocking",
-        description: "Clear blockages in baths, showers, and wet rooms.",
-      },
+      { slug: 'blocked-toilet', name: 'Blocked Toilet', shortName: 'Blocked Toilet' },
+      { slug: 'blocked-sink', name: 'Blocked Sink', shortName: 'Blocked Sink' },
+      { slug: 'blocked-bath', name: 'Blocked Bath', shortName: 'Blocked Bath' },
     ],
-    semanticTags: {
-      problemType: ["blockage", "slow drainage", "standing water"],
-      serviceType: ["emergency", "repair", "maintenance"],
-      propertyType: ["residential", "commercial", "industrial"],
-      riskFactors: ["flooding", "water damage", "hygiene"],
-    },
   },
   {
-    slug: "drain-unblocking",
-    name: "Drain Unblocking",
-    shortLabel: "Sink and toilet unblocking",
-    description: "Expert unblocking of sinks, toilets, baths, and shower drains. No call-out charges, fixed pricing.",
-    icon: "🔧",
+    slug: 'drain-unblocking',
+    name: 'Drain Unblocking',
+    shortName: 'Drain Unblocking',
+    description: 'Professional drain unblocking services using the latest equipment and techniques.',
+    icon: '🔧',
     subServices: [
-      {
-        slug: "external-drain-unblocking",
-        name: "External Drain Unblocking",
-        shortLabel: "Outside drain clearing",
-        description: "Clear blockages in external drains, gullies, and manholes.",
-      },
-      {
-        slug: "internal-drain-unblocking",
-        name: "Internal Drain Unblocking",
-        shortLabel: "Inside drain clearing",
-        description: "Unblock internal drains throughout your property.",
-      },
+      { slug: 'external-drain-unblocking', name: 'External Drain Unblocking', shortName: 'External' },
+      { slug: 'internal-drain-unblocking', name: 'Internal Drain Unblocking', shortName: 'Internal' },
     ],
-    semanticTags: {
-      problemType: ["blockage", "overflow", "backup"],
-      serviceType: ["repair", "emergency"],
-      propertyType: ["residential", "commercial"],
-      riskFactors: ["water damage", "smell", "hygiene"],
-    },
   },
   {
-    slug: "cctv-drain-surveys",
-    name: "CCTV Drain Surveys",
-    shortLabel: "CCTV drain inspections",
-    description: "High-definition CCTV surveys to diagnose drainage issues accurately. Detailed reports provided.",
-    icon: "📹",
+    slug: 'cctv-drain-surveys',
+    name: 'CCTV Drain Surveys',
+    shortName: 'CCTV Surveys',
+    description: 'High-definition CCTV drain inspections to diagnose problems without excavation.',
+    icon: '📹',
     subServices: [
-      {
-        slug: "pre-purchase-survey",
-        name: "Pre-Purchase Drain Survey",
-        shortLabel: "Homebuyer drain survey",
-        description: "Comprehensive drain survey before buying a property.",
-      },
-      {
-        slug: "drainage-investigation",
-        name: "Drainage Investigation",
-        shortLabel: "Problem diagnosis",
-        description: "Detailed investigation to identify the cause of drainage problems.",
-      },
+      { slug: 'pre-purchase-survey', name: 'Pre-Purchase Survey', shortName: 'Pre-Purchase' },
+      { slug: 'drainage-investigation', name: 'Drainage Investigation', shortName: 'Investigation' },
     ],
-    semanticTags: {
-      problemType: ["investigation", "diagnosis", "inspection"],
-      serviceType: ["survey", "assessment"],
-      propertyType: ["residential", "commercial"],
-      riskFactors: ["structural damage", "root ingress", "collapse"],
-    },
   },
   {
-    slug: "drain-jetting",
-    name: "Drain Jetting",
-    shortLabel: "High-pressure jetting",
-    description: "Powerful high-pressure water jetting to clear stubborn blockages and clean drains thoroughly.",
-    icon: "💧",
+    slug: 'drain-jetting',
+    name: 'Drain Jetting',
+    shortName: 'Drain Jetting',
+    description: 'High-pressure water jetting to clear stubborn blockages and clean drain pipes.',
+    icon: '💧',
     subServices: [
-      {
-        slug: "domestic-jetting",
-        name: "Domestic Drain Jetting",
-        shortLabel: "Home drain jetting",
-        description: "High-pressure jetting for residential properties.",
-      },
-      {
-        slug: "commercial-jetting",
-        name: "Commercial Drain Jetting",
-        shortLabel: "Business drain jetting",
-        description: "Industrial-strength jetting for commercial properties.",
-      },
+      { slug: 'domestic-jetting', name: 'Domestic Jetting', shortName: 'Domestic' },
+      { slug: 'commercial-jetting', name: 'Commercial Jetting', shortName: 'Commercial' },
     ],
-    semanticTags: {
-      problemType: ["blockage", "buildup", "fat grease"],
-      serviceType: ["cleaning", "maintenance", "repair"],
-      propertyType: ["residential", "commercial", "industrial"],
-      riskFactors: ["recurrent blockages", "hygiene"],
-    },
   },
   {
-    slug: "emergency-drain-services",
-    name: "Emergency Drain Services",
-    shortLabel: "24/7 emergency callouts",
-    description: "Round-the-clock emergency drainage services. Fast response times when you need us most.",
-    icon: "🚨",
+    slug: 'emergency-drain-services',
+    name: 'Emergency Drain Services',
+    shortName: 'Emergency',
+    description: '24/7 emergency drain services for urgent blockages, flooding, and sewage issues.',
+    icon: '🚨',
     subServices: [
-      {
-        slug: "flooding-emergency",
-        name: "Flooding Emergency",
-        shortLabel: "Flood response",
-        description: "Immediate response to flooding and water damage emergencies.",
-      },
-      {
-        slug: "sewage-emergency",
-        name: "Sewage Emergency",
-        shortLabel: "Sewage backup",
-        description: "Urgent response to sewage backups and overflows.",
-      },
+      { slug: 'flooding-emergency', name: 'Flooding Emergency', shortName: 'Flooding' },
+      { slug: 'sewage-emergency', name: 'Sewage Emergency', shortName: 'Sewage' },
     ],
-    semanticTags: {
-      problemType: ["emergency", "urgent", "flooding"],
-      serviceType: ["emergency", "urgent response"],
-      propertyType: ["residential", "commercial"],
-      riskFactors: ["health hazard", "property damage", "contamination"],
-    },
   },
   {
-    slug: "drain-repairs",
-    name: "Drain Repairs",
-    shortLabel: "Drain repair services",
-    description: "Professional drain repair services including pipe repairs, relining, and replacement.",
-    icon: "🔧",
+    slug: 'drain-repairs',
+    name: 'Drain Repairs',
+    shortName: 'Drain Repairs',
+    description: 'Expert drain repair services including pipe relining and drain excavation.',
+    icon: '🛠️',
     subServices: [
-      {
-        slug: "pipe-relining",
-        name: "Pipe Relining",
-        shortLabel: "No-dig pipe repair",
-        description: "Trenchless pipe relining to repair damaged drains without excavation.",
-      },
-      {
-        slug: "drain-excavation",
-        name: "Drain Excavation",
-        shortLabel: "Excavation and replacement",
-        description: "Full drain excavation and replacement for severely damaged pipes.",
-      },
+      { slug: 'pipe-relining', name: 'Pipe Relining', shortName: 'Pipe Relining' },
+      { slug: 'drain-excavation', name: 'Drain Excavation', shortName: 'Excavation' },
     ],
-    semanticTags: {
-      problemType: ["damage", "cracks", "collapse", "leaks"],
-      serviceType: ["repair", "replacement", "maintenance"],
-      propertyType: ["residential", "commercial"],
-      riskFactors: ["structural damage", "flooding", "contamination"],
-    },
   },
 ];
-
-export function getServiceBySlug(slug: string): ServiceConfig | undefined {
-  return SERVICES.find((service) => service.slug === slug);
-}
-
-export function getSubServiceBySlug(
-  serviceSlug: string,
-  subServiceSlug: string
-): SubServiceConfig | undefined {
-  const service = getServiceBySlug(serviceSlug);
-  return service?.subServices?.find((sub) => sub.slug === subServiceSlug);
-}
-
-export function getAllSubServices(): Array<{
-  service: ServiceConfig;
-  subService: SubServiceConfig;
-}> {
-  const result: Array<{ service: ServiceConfig; subService: SubServiceConfig }> = [];
-  
-  for (const service of SERVICES) {
-    if (service.subServices) {
-      for (const subService of service.subServices) {
-        result.push({ service, subService });
-      }
-    }
-  }
-  
-  return result;
-}

@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import LeadForm from '../../components/LeadForm.astro';
+import { brand } from '../../config/brand';
+import { services } from '../../config/services';
+import { locations } from '../../config/locations';
+import { locationTitle, locationDescription } from '../../config/seo';
+import contentData from '../../data/ai-content.json';
+const content = contentData as Record<string, string>;
+
+export function getStaticPaths() {
+  return locations.map(l => ({
+    params: { location: l.slug },
+    props: { location: l },
+  }));
+}
+
+const { location } = Astro.props;
+const pageContent = content[`location:${location.slug}`] || '';
+const breadcrumbs = [
+  { name: 'Areas We Cover', url: '/locations/' },
+  { name: location.name, url: `/locations/${location.slug}/` },
+];
+
+const placeSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Place',
+  name: location.name,
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: location.lat,
+    longitude: location.lng,
+  },
+};
+---
+
+<BaseLayout
+  title={locationTitle(location)}
+  description={locationDescription(location)}
+  breadcrumbs={breadcrumbs}
+  schemas={[placeSchema]}
+>
+  <Breadcrumbs items={breadcrumbs} />
+  <Hero title={`Drain Services in ${location.name}`} subtitle={`Professional drain unblocking, surveys, jetting & repairs in ${location.name}`} compact />
+
+  <section class="section-padding">
+    <div class="container-narrow mx-auto">
+      {pageContent && (
+        <div class="prose prose-lg mx-auto mb-12 max-w-3xl text-gray-700">
+          <Fragment set:html={pageContent} />
+        </div>
+      )}
+
+      <h2 class="text-2xl font-bold text-accent mb-6">Services Available in {location.name}</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {services.map(s => <ServiceCard service={s} locationSlug={location.slug} />)}
+      </div>
+
+      <!-- Other areas -->
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold text-accent mb-4">Other Areas We Cover</h2>
+        <div class="flex flex-wrap gap-3">
+          {locations.filter(l => l.slug !== location.slug).map(l => (
+            <a href={`/locations/${l.slug}/`} class="rounded-full border border-gray-200 px-4 py-2 text-sm hover:border-primary hover:text-primary transition-colors">
+              {l.name}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <LeadForm sourcePage={`/locations/${location.slug}/`} preselectedLocation={location.slug} />
+</BaseLayout>

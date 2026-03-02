@@ -1,0 +1,2 @@
+/location/* /locations/:splat 301
+/location /locations/ 301
