@@ -1,5 +1,6 @@
 ---
 import { brand } from '../config/brand';
+import { services } from '../config/services';
 
 interface Props {
   schemas?: object[];
@@ -11,6 +12,7 @@ const { schemas = [], breadcrumbs = [] } = Astro.props;
 const localBusiness = {
   '@context': 'https://schema.org',
   '@type': 'Plumber',
+  '@id': `${brand.url}/#organization`,
   name: brand.name,
   telephone: brand.phone,
   email: brand.email,
@@ -18,11 +20,13 @@ const localBusiness = {
   image: `${brand.url}/images/hero-bg.webp`,
   logo: `${brand.url}/favicon.png`,
   priceRange: '££',
-  areaServed: {
-    '@type': 'GeoCircle',
-    geoMidpoint: { '@type': 'GeoCoordinates', latitude: 51.5558, longitude: -1.7797 },
-    geoRadius: '20000',
-  },
+  areaServed: [
+    {
+      '@type': 'City',
+      name: 'Swindon',
+      containedInPlace: { '@type': 'AdministrativeArea', name: 'Wiltshire' },
+    },
+  ],
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Swindon',
@@ -36,6 +40,20 @@ const localBusiness = {
     closes: '23:59',
   },
 };
+
+const serviceSchemas = services.map(s => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: s.name,
+  description: s.description,
+  url: `${brand.url}/services/${s.slug}/`,
+  provider: { '@type': 'Plumber', '@id': `${brand.url}/#organization` },
+  areaServed: { '@type': 'City', name: 'Swindon' },
+  availableChannel: {
+    '@type': 'ServiceChannel',
+    servicePhone: { '@type': 'ContactPoint', telephone: brand.phone },
+  },
+}));
 
 const breadcrumbSchema = breadcrumbs.length > 0 ? {
   '@context': 'https://schema.org',
@@ -51,7 +69,7 @@ const breadcrumbSchema = breadcrumbs.length > 0 ? {
   ],
 } : null;
 
-const allSchemas = [localBusiness, ...(breadcrumbSchema ? [breadcrumbSchema] : []), ...schemas];
+const allSchemas = [localBusiness, ...serviceSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : []), ...schemas];
 ---
 
 {allSchemas.map(schema => (

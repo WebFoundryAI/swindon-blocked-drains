@@ -51,6 +51,9 @@ const ogImageUrl = ogImage || `${brand.url}/images/hero-bg.webp`;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
 
+    <!-- Hero preload -->
+    <link rel="preload" as="image" type="image/webp" href="/images/hero-bg.webp" />
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

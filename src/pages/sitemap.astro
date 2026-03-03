@@ -45,12 +45,12 @@ const breadcrumbs = [
         <ul class="space-y-4 text-gray-700">
           {services.map(service => (
             <li>
-              <a href={`/${service.slug}/`} class="text-primary font-medium hover:underline text-lg">{service.name}</a>
+              <a href={`/services/${service.slug}/`} class="text-primary font-medium hover:underline text-lg">{service.name}</a>
               {service.subServices.length > 0 && (
                 <ul class="mt-2 ml-6 space-y-1">
                   {service.subServices.map(sub => (
                     <li>
-                      <a href={`/${service.slug}/${sub.slug}/`} class="text-primary hover:underline">{sub.name}</a>
+                      <a href={`/services/${service.slug}/${sub.slug}/`} class="text-primary hover:underline">{sub.name}</a>
                     </li>
                   ))}
                 </ul>
@@ -66,7 +66,7 @@ const breadcrumbs = [
         <ul class="space-y-2 text-gray-700">
           {locations.map(location => (
             <li>
-              <a href={`/${location.slug}/`} class="text-primary hover:underline">{location.name}</a>
+              <a href={`/locations/${location.slug}/`} class="text-primary hover:underline">{location.name}</a>
             </li>
           ))}
         </ul>
@@ -81,7 +81,7 @@ const breadcrumbs = [
             <ul class="grid gap-1 sm:grid-cols-2 lg:grid-cols-3 text-gray-700">
               {locations.map(location => (
                 <li>
-                  <a href={`/${service.slug}/${location.slug}/`} class="text-primary hover:underline text-sm">
+                  <a href={`/locations/${location.slug}/${service.slug}/`} class="text-primary hover:underline text-sm">
                     {service.name} in {location.name}
                   </a>
                 </li>
@@ -100,6 +100,8 @@ const breadcrumbs = [
           <li><a href="/cookies/" class="text-primary hover:underline">Cookie Policy</a></li>
         </ul>
       </div>
+
+      <p class="text-sm text-gray-500">Looking for the XML sitemap? <a href="/sitemap-index.xml" class="text-primary hover:underline">View sitemap-index.xml</a></p>
 
     </div>
   </section>

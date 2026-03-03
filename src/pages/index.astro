@@ -35,7 +35,7 @@ const faqSchema = {
 
 <BaseLayout title={homeTitle()} description={homeDescription()} schemas={[faqSchema]}>
   <Hero
-    title="Blocked Drains in Swindon?"
+    title="Drain Unblocking & Blocked Drains in Swindon"
     subtitle="24/7 emergency drain unblocking, CCTV surveys, jetting & repairs. No call-out charge. Local, fully insured engineers."
   />
 
@@ -46,6 +46,73 @@ const faqSchema = {
     <div class="container-narrow mx-auto max-w-3xl">
       <div class="prose prose-lg mx-auto text-gray-700">
         <Fragment set:html={content['home:intro'] || ''} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Common Problems -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-narrow mx-auto max-w-3xl">
+      <h2 class="text-center text-3xl font-bold text-accent">Common Drain Problems We Fix in Swindon</h2>
+      <p class="mx-auto mt-3 max-w-2xl text-center text-gray-600">Whatever drain issue you're facing, our local Swindon engineers have the tools and experience to fix it fast.</p>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        <a href="/services/blocked-drains/blocked-sink/" class="rounded-lg border border-gray-200 bg-white p-4 hover:border-primary transition-colors group">
+          <h3 class="font-semibold text-accent group-hover:text-primary">Blocked Sink</h3>
+          <p class="mt-1 text-sm text-gray-600">Kitchen and bathroom sinks cleared quickly, including grease and soap build-up.</p>
+        </a>
+        <a href="/services/blocked-drains/blocked-toilet/" class="rounded-lg border border-gray-200 bg-white p-4 hover:border-primary transition-colors group">
+          <h3 class="font-semibold text-accent group-hover:text-primary">Blocked Toilet</h3>
+          <p class="mt-1 text-sm text-gray-600">Toilet blockages resolved same day with minimal disruption.</p>
+        </a>
+        <a href="/services/blocked-drains/blocked-bath/" class="rounded-lg border border-gray-200 bg-white p-4 hover:border-primary transition-colors group">
+          <h3 class="font-semibold text-accent group-hover:text-primary">Blocked Bath &amp; Shower</h3>
+          <p class="mt-1 text-sm text-gray-600">Hair, soap and limescale blockages cleared from bath and shower drains.</p>
+        </a>
+        <a href="/services/drain-unblocking/external-drain-unblocking/" class="rounded-lg border border-gray-200 bg-white p-4 hover:border-primary transition-colors group">
+          <h3 class="font-semibold text-accent group-hover:text-primary">Blocked Outside Drain</h3>
+          <p class="mt-1 text-sm text-gray-600">External drains, gullies and manhole blockages cleared using high-pressure jetting.</p>
+        </a>
+        <a href="/services/drain-jetting/" class="rounded-lg border border-gray-200 bg-white p-4 hover:border-primary transition-colors group">
+          <h3 class="font-semibold text-accent group-hover:text-primary">Slow Drainage</h3>
+          <p class="mt-1 text-sm text-gray-600">Slow-draining sinks, baths and showers diagnosed and fixed with professional jetting.</p>
+        </a>
+        <a href="/services/emergency-drain-services/" class="rounded-lg border border-gray-200 bg-white p-4 hover:border-primary transition-colors group">
+          <h3 class="font-semibold text-accent group-hover:text-primary">Emergency Same-Day Call-Out</h3>
+          <p class="mt-1 text-sm text-gray-600">24/7 emergency response for flooding, sewage issues and urgent drain problems.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section-padding">
+    <div class="container-narrow mx-auto max-w-3xl">
+      <h2 class="text-center text-3xl font-bold text-accent">Drain Unblocking Costs in Swindon</h2>
+      <p class="mx-auto mt-3 max-w-2xl text-center text-gray-600">Transparent, honest pricing with no hidden surprises.</p>
+      <div class="mt-8 rounded-xl border border-gray-200 bg-white p-6 lg:p-8">
+        <ul class="space-y-3 text-gray-700">
+          <li class="flex items-start gap-3">
+            <span class="mt-1 text-primary font-bold">&#10003;</span>
+            <span><strong>No call-out fee</strong> &mdash; you only pay for the work carried out.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1 text-primary font-bold">&#10003;</span>
+            <span><strong>Fixed pricing</strong> &mdash; we provide a clear quote before starting any job.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1 text-primary font-bold">&#10003;</span>
+            <span><strong>No hidden extras</strong> &mdash; the price we quote is the price you pay.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1 text-primary font-bold">&#10003;</span>
+            <span><strong>Satisfaction guarantee</strong> &mdash; if the problem returns, we come back free of charge.</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="mt-1 text-primary font-bold">&#10003;</span>
+            <span><strong>All payment methods accepted</strong> &mdash; cash, card or bank transfer.</span>
+          </li>
+        </ul>
+        <p class="mt-6 text-sm text-gray-500">Every job is different, so we assess the issue on site and provide an exact quote before starting. Call <a href={brand.phoneHref} class="text-primary font-semibold hover:underline">{brand.phone}</a> for a free, no-obligation estimate.</p>
       </div>
     </div>
   </section>
