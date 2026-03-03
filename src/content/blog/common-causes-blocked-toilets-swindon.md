@@ -2,7 +2,7 @@
 title: "Swindon Blocked Toilet Causes"
 slug: "common-causes-blocked-toilets-swindon"
 excerpt: "Why do toilets block in Swindon homes? Learn the most common causes—from sanitary items to old pipework—and simple steps to prevent costly call-outs."
-date: 2025-12-15
+date: 2025-12-08
 ---
 
 A blocked toilet is one of the most inconvenient household problems, often occurring at the worst possible moment. Understanding the common causes of toilet blockages can help Swindon homeowners take steps to prevent them and know when to seek professional help.

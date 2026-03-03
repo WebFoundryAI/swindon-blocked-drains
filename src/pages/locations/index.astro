@@ -5,13 +5,14 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import LocationCard from '../../components/LocationCard.astro';
 import LeadForm from '../../components/LeadForm.astro';
 import { locations } from '../../config/locations';
+import { brand } from '../../config/brand';
 
 const breadcrumbs = [{ name: 'Areas We Cover', url: '/locations/' }];
 ---
 
 <BaseLayout
-  title="Areas We Cover | Blocked Drains Swindon | 01793 487489"
-  description="Drain unblocking services across Swindon, Royal Wootton Bassett, Highworth, Purton, Cricklade & Wroughton. 24/7 emergency response. Call 01793 487489."
+  title={`Areas We Cover | ${brand.name} | ${brand.phone}`}
+  description={`Drain unblocking services across Swindon, Royal Wootton Bassett, Highworth, Purton, Cricklade & Wroughton. 24/7 emergency response. Call ${brand.phone}.`}
   breadcrumbs={breadcrumbs}
 >
   <Breadcrumbs items={breadcrumbs} />

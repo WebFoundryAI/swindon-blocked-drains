@@ -2,7 +2,7 @@
 title: "Prevent Blocked Drains | Swindon Home Tips"
 slug: "how-to-prevent-blocked-drains"
 excerpt: "Practical tips for Swindon homeowners to prevent blocked drains. Simple habits that protect your drainage system and avoid costly emergency call-outs."
-date: 2025-12-15
+date: 2025-12-01
 ---
 
 Blocked drains are one of the most common household problems faced by homeowners across the UK. The inconvenience of slow-draining sinks, unpleasant odours, and the potential for water damage makes drain maintenance an essential part of home care. Fortunately, many blockages can be prevented with a few simple habits and regular attention to your drainage system.

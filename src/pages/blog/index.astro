@@ -13,8 +13,8 @@ const breadcrumbs = [{ name: 'Blog', url: '/blog/' }];
 ---
 
 <BaseLayout
-  title="Blog | Drain Tips & Advice | Blocked Drains Swindon"
-  description="Helpful drain maintenance tips, advice, and news from Blocked Drains Swindon. Keep your drains flowing with expert guidance."
+  title={`Blog | Drain Tips & Advice | ${brand.name}`}
+  description={`Helpful drain maintenance tips, advice, and news from ${brand.name}. Keep your drains flowing with expert guidance.`}
   breadcrumbs={breadcrumbs}
 >
   <Breadcrumbs items={breadcrumbs} />
@@ -35,7 +35,7 @@ const breadcrumbs = [{ name: 'Blog', url: '/blog/' }];
               )}
               <span class="mt-4 inline-flex items-center text-sm font-medium text-primary">
                 Read more
-                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
               </span>
             </a>
           </article>
