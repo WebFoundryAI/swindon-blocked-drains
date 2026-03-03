@@ -7,7 +7,7 @@ export function homeTitle(): string {
 }
 
 export function homeDescription(): string {
-  return 'Blocked drains in Swindon? 24/7 emergency drain unblocking, CCTV surveys, jetting & repairs. No call-out charge. Local engineers. Call 01793 487489.';
+  return `Blocked drains in Swindon? 24/7 emergency drain unblocking, CCTV surveys, jetting & repairs. No call-out charge. Local engineers. Call ${brand.phone}.`;
 }
 
 export function serviceTitle(service: Service): string {

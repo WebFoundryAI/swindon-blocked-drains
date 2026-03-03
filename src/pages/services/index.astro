@@ -5,6 +5,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ServiceCard from '../../components/ServiceCard.astro';
 import LeadForm from '../../components/LeadForm.astro';
 import { services } from '../../config/services';
+import { brand } from '../../config/brand';
 import contentData from '../../data/ai-content.json';
 
 const content = contentData as Record<string, string>;
@@ -12,8 +13,8 @@ const breadcrumbs = [{ name: 'Services', url: '/services/' }];
 ---
 
 <BaseLayout
-  title="Drain Services Swindon | All Services | 01793 487489"
-  description="Complete range of drain services in Swindon: unblocking, CCTV surveys, jetting, emergency services & repairs. No call-out charge. Call 01793 487489."
+  title={`Drain Services Swindon | All Services | ${brand.phone}`}
+  description={`Complete range of drain services in Swindon: unblocking, CCTV surveys, jetting, emergency services & repairs. No call-out charge. Call ${brand.phone}.`}
   breadcrumbs={breadcrumbs}
 >
   <Breadcrumbs items={breadcrumbs} />
