@@ -87,7 +87,7 @@ import { services } from '../config/services';
   });
 
   document.addEventListener('click', (e) => {
-    if (btn?.getAttribute('aria-expanded') === 'true' && !(e.target as Node)?.closest?.('#mobile-menu, #mobile-menu-btn')) {
+    if (btn?.getAttribute('aria-expanded') === 'true' && !(e.target as Element)?.closest?.('#mobile-menu, #mobile-menu-btn')) {
       closeMenu();
     }
   });
