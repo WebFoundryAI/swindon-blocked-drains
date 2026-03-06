@@ -1,5 +1,5 @@
 ---
-title: "Prevent Blocked Drains | Swindon Home Tips"
+title: "Prevent Blocked Drains in Swindon"
 slug: "how-to-prevent-blocked-drains"
 excerpt: "Practical tips for Swindon homeowners to prevent blocked drains. Simple habits that protect your drainage system and avoid costly emergency call-outs."
 date: 2025-12-01

@@ -1,7 +1,7 @@
 ---
 title: "Swindon Drain Maintenance Tips"
 slug: "benefits-regular-drain-maintenance"
-excerpt: "Routine drain maintenance saves Swindon homeowners money and hassle. Discover how annual checks prevent blockages, catch problems early, and extend pipe life."
+excerpt: "Routine drain maintenance saves Swindon homeowners money. Discover how annual checks prevent blockages, catch problems early, and extend pipe life."
 date: 2026-01-05
 ---
 

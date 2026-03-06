@@ -11,12 +11,23 @@ const breadcrumbs = [{ name: 'Areas We Cover', url: '/locations/' }];
 ---
 
 <BaseLayout
-  title={`Areas We Cover | ${brand.name} | ${brand.phone}`}
+  title={`Locations We Cover | Drain Services | ${brand.phone}`}
   description={`Drain unblocking services across Swindon, Royal Wootton Bassett, Highworth, Purton, Cricklade & Wroughton. 24/7 emergency response. Call ${brand.phone}.`}
   breadcrumbs={breadcrumbs}
 >
   <Breadcrumbs items={breadcrumbs} />
   <Hero title="Areas We Cover" subtitle="Professional drain services across Swindon and the surrounding Wiltshire area" compact />
+
+  <!-- Locations intro content -->
+  <section class="section-padding pb-0">
+    <div class="container-narrow mx-auto max-w-3xl">
+      <div class="prose prose-lg mx-auto text-gray-700">
+        <p>Blocked Drains Swindon provides fast, reliable drainage services across Swindon and the surrounding Wiltshire area. Our experienced local engineers are based in Swindon and cover a wide service area, meaning we can reach you quickly whether you are in the town centre or one of the nearby communities.</p>
+        <p>We understand that drainage problems require urgent attention, which is why we offer 24/7 emergency call-outs to every area we serve. From blocked drains and CCTV drain surveys to high-pressure jetting and drain repairs, our full range of services is available to residential and commercial customers across all of the locations listed below.</p>
+        <p>Select your area to learn more about the drainage services available near you, or call us on <a href={brand.phoneHref}>{brand.phone}</a> for immediate assistance. If your area is not listed, please get in touch — we may still be able to help.</p>
+      </div>
+    </div>
+  </section>
 
   <section class="section-padding">
     <div class="container-narrow mx-auto">
