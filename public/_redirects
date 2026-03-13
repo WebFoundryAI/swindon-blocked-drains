@@ -1,2 +1,13 @@
-/location/* /locations/:splat 301
 /location /locations/ 301
+/location/swindon /locations/swindon/ 301
+/location/swindon/* /locations/swindon/:splat 301
+/location/royal-wootton-bassett /locations/royal-wootton-bassett/ 301
+/location/royal-wootton-bassett/* /locations/royal-wootton-bassett/:splat 301
+/location/highworth /locations/highworth/ 301
+/location/highworth/* /locations/highworth/:splat 301
+/location/purton /locations/purton/ 301
+/location/purton/* /locations/purton/:splat 301
+/location/cricklade /locations/cricklade/ 301
+/location/cricklade/* /locations/cricklade/:splat 301
+/location/wroughton /locations/wroughton/ 301
+/location/wroughton/* /locations/wroughton/:splat 301

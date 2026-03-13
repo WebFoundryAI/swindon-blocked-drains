@@ -32,7 +32,10 @@ export function homeDescription(): string {
 
 // SERVICE pages (under /services/) — brand-focused, no location duplication
 export function serviceTitle(service: Service): string {
-  return truncTitle([`${service.name} Swindon`, brand.name, brand.phone]);
+  const prefix = `${service.name} Swindon`;
+  // If prefix equals brand name, use a different middle segment to avoid duplication
+  const middle = prefix === brand.name ? '24/7 Drain Clearing' : brand.name;
+  return truncTitle([prefix, middle, brand.phone]);
 }
 
 export function serviceDescription(service: Service): string {
