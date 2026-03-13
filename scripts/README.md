@@ -67,3 +67,52 @@ Results: 15 successful, 0 failed
 - The script exits with status 1 if any submissions fail
 - Automatically reads config from the project's `src/config/` directory
 - Works on any cloned site template with the same config structure
+
+## batch-indexing.ts
+
+Submit top-level pages to Google Indexing API for multiple domains at once.
+
+### Usage
+
+```bash
+bun run scripts/batch-indexing.ts --credentials ./gsc-credentials.json --domains domain1.com domain2.com domain3.com
+```
+
+### What It Does
+
+Submits **3 URLs per domain** (home, services index, locations index):
+- `/`
+- `/services/`
+- `/locations/`
+
+Useful for mass-indexing newly deployed or cloned sites.
+
+### Example
+
+```bash
+bun run scripts/batch-indexing.ts \
+  --credentials ./creds.json \
+  --domains bradfordblockeddrains.co.uk emergencyplumbercardiff247.co.uk emergencyplumbernewcastleupontyne.co.uk
+```
+
+Output:
+```
+📋 Google Indexing API - Batch Request
+================================
+
+Domains: 3
+URLs per domain: 3 (home, services, locations)
+Total URLs: 9
+
+Authenticating with Google...
+✅ Authentication successful
+
+Submitting URLs...
+
+✅ https://bradfordblockeddrains.co.uk/
+✅ https://bradfordblockeddrains.co.uk/services/
+✅ https://bradfordblockeddrains.co.uk/locations/
+...
+================================
+Results: 9 successful, 0 failed
+```
