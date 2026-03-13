@@ -1,26 +1,43 @@
 import { GoogleAuth } from 'google-auth-library';
 import { readFileSync } from 'fs';
+import { resolve } from 'path';
 
 const INDEXING_API_URL = 'https://indexing.googleapis.com/v3/urlNotifications:publish';
 
-// Service and location slugs
-const servicesSlugs = [
-  'blocked-drains',
-  'drain-unblocking',
-  'cctv-drain-surveys',
-  'drain-jetting',
-  'emergency-drain-services',
-  'drain-repairs',
-];
+async function loadConfig(configDir: string) {
+  try {
+    // Load services config
+    const servicesPath = resolve(configDir, 'src/config/services.ts');
+    const servicesContent = readFileSync(servicesPath, 'utf-8');
+    const servicesMatch = servicesContent.match(/slug:\s*['"]([^'"]+)['"]/g);
+    const servicesSlugs = servicesMatch
+      ? servicesMatch.map((m) => m.match(/['"]([^'"]+)['"]/)[1])
+      : [];
 
-const locationsSlugs = [
-  'swindon',
-  'royal-wootton-bassett',
-  'highworth',
-  'purton',
-  'cricklade',
-  'wroughton',
-];
+    // Load locations config
+    const locationsPath = resolve(configDir, 'src/config/locations.ts');
+    const locationsContent = readFileSync(locationsPath, 'utf-8');
+    const locationsMatch = locationsContent.match(/slug:\s*['"]([^'"]+)['"]/g);
+    const locationsSlugs = locationsMatch
+      ? locationsMatch.map((m) => m.match(/['"]([^'"]+)['"]/)[1])
+      : [];
+
+    // Filter to only top-level slugs (not sub-services)
+    const uniqueServiceSlugs = [...new Set(servicesSlugs)].filter((s) => {
+      // Simple heuristic: service names don't have hyphens after first word typically,
+      // but let's just take the first occurrence of each
+      return s.match(/^[a-z-]+$/);
+    });
+
+    return {
+      services: [...new Set(servicesSlugs)].slice(0, 6),
+      locations: [...new Set(locationsSlugs)],
+    };
+  } catch (error) {
+    console.error('Error loading config:', error instanceof Error ? error.message : String(error));
+    process.exit(1);
+  }
+}
 
 async function getAuthToken(credentialsPath: string): Promise<string> {
   const auth = new GoogleAuth({
@@ -33,7 +50,7 @@ async function getAuthToken(credentialsPath: string): Promise<string> {
   return credentials.token!;
 }
 
-function buildUrls(baseUrl: string): string[] {
+function buildUrls(baseUrl: string, services: string[], locations: string[]): string[] {
   const urls: string[] = [];
 
   // Home page
@@ -43,7 +60,7 @@ function buildUrls(baseUrl: string): string[] {
   urls.push(`${baseUrl}/services/`);
 
   // Service pages
-  servicesSlugs.forEach((slug) => {
+  services.forEach((slug) => {
     urls.push(`${baseUrl}/services/${slug}/`);
   });
 
@@ -51,7 +68,7 @@ function buildUrls(baseUrl: string): string[] {
   urls.push(`${baseUrl}/locations/`);
 
   // Location pages
-  locationsSlugs.forEach((slug) => {
+  locations.forEach((slug) => {
     urls.push(`${baseUrl}/locations/${slug}/`);
   });
 
@@ -92,13 +109,14 @@ async function submitUrlToIndexingApi(
 async function main() {
   const args = Bun.argv.slice(2);
   const credentialsIndex = args.indexOf('--credentials');
+  const urlIndex = args.indexOf('--url');
 
   if (credentialsIndex === -1 || credentialsIndex === args.length - 1) {
     console.error(
       'Error: --credentials argument required with path to credentials JSON'
     );
     console.error(
-      'Usage: bun run scripts/request-indexing.ts --credentials ./path/to/credentials.json'
+      'Usage: bun run scripts/request-indexing.ts --credentials ./path/to/credentials.json [--url https://domain.com]'
     );
     process.exit(1);
   }
@@ -113,12 +131,32 @@ async function main() {
     process.exit(1);
   }
 
-  const baseUrl = 'https://swindonblockeddrains.co.uk';
-  const urls = buildUrls(baseUrl);
+  let baseUrl: string;
+
+  if (urlIndex !== -1 && urlIndex < args.length - 1) {
+    baseUrl = args[urlIndex + 1];
+  } else {
+    // Load from brand config
+    try {
+      const brandPath = resolve(process.cwd(), 'src/config/brand.ts');
+      const brandContent = readFileSync(brandPath, 'utf-8');
+      const urlMatch = brandContent.match(/url:\s*['"]([^'"]+)['"]/);
+      baseUrl = urlMatch ? urlMatch[1] : 'https://example.com';
+    } catch {
+      baseUrl = 'https://example.com';
+    }
+  }
+
+  // Load config
+  const config = await loadConfig(process.cwd());
+
+  const urls = buildUrls(baseUrl, config.services, config.locations);
 
   console.log(`\n📋 Google Indexing API Request`);
   console.log(`================================\n`);
   console.log(`Base URL: ${baseUrl}`);
+  console.log(`Services: ${config.services.length}`);
+  console.log(`Locations: ${config.locations.length}`);
   console.log(`Total URLs: ${urls.length}\n`);
   console.log('Authenticating with Google...');
 

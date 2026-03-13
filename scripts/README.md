@@ -18,16 +18,22 @@ Submit URLs to the Google Indexing API to fast-track crawling and indexing.
 
 ### Usage
 
+**Basic (uses domain from src/config/brand.ts):**
 ```bash
-bun run scripts/request-indexing.ts --credentials ./path/to/credentials.json
+bun run scripts/request-indexing.ts --credentials ./gsc-credentials.json
+```
+
+**Custom domain:**
+```bash
+bun run scripts/request-indexing.ts --credentials ./gsc-credentials.json --url https://custom-domain.com
 ```
 
 ### What It Does
 
-Submits 15 priority pages to Google's Indexing API:
+Reads service and location slugs from `src/config/` and submits all URLs to Google's Indexing API:
 - Home page (`/`)
-- Services index and 6 service pages
-- Locations index and 6 location pages
+- Services index and all service pages (`/services/` + `/services/{slug}/`)
+- Locations index and all location pages (`/locations/` + `/locations/{slug}/`)
 
 Each URL receives a `URL_UPDATED` notification, triggering faster re-crawling than waiting for Googlebot.
 
@@ -38,6 +44,8 @@ Each URL receives a `URL_UPDATED` notification, triggering faster re-crawling th
 ================================
 
 Base URL: https://swindonblockeddrains.co.uk
+Services: 6
+Locations: 6
 Total URLs: 15
 
 Authenticating with Google...
@@ -47,7 +55,6 @@ Submitting URLs...
 
 ✅ https://swindonblockeddrains.co.uk/
 ✅ https://swindonblockeddrains.co.uk/services/
-✅ https://swindonblockeddrains.co.uk/services/blocked-drains/
 ...
 ================================
 Results: 15 successful, 0 failed
@@ -55,7 +62,8 @@ Results: 15 successful, 0 failed
 
 ### Notes
 
-- The API allows 200 URLs per day, this script submits 15
+- The API allows 200 URLs per day, this script submits ~15 (varies by service/location count)
 - Successful submissions return HTTP 200
 - The script exits with status 1 if any submissions fail
-- Rate limiting: ~1 request per 100ms (built-in delay not implemented; API handles throttling)
+- Automatically reads config from the project's `src/config/` directory
+- Works on any cloned site template with the same config structure
