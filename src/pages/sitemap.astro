@@ -1,116 +1,188 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { brand } from '../config/brand';
-import { services } from '../config/services';
-import { locations } from '../config/locations';
+import { BRAND } from '../data/brand';
+import { SERVICES } from '../data/services';
+import { INDEXED_LOCATIONS } from '../data/locations';
+import { BLOG_POSTS } from '../data/blog';
+import { getBreadcrumbSchema } from '../utils/schema';
 
-const title = `Sitemap | ${brand.name}`;
-const description = `Full HTML sitemap for ${brand.name}. Browse all our drainage services, coverage areas, and useful pages.`;
+// SEO-optimized title (50-60 chars)
+const title = `Sitemap | Browse All Pages and Services`;
 
-const breadcrumbs = [
-  { name: 'Sitemap', url: '/sitemap/' },
+// SEO-optimized description (120-155 chars)
+const description = `Complete sitemap for ${BRAND.brandName}. Browse all drainage services, locations across Swindon and surrounding Wiltshire areas, and information pages on our website.`;
+
+const breadcrumbSchema = getBreadcrumbSchema([
+  { name: "Home", url: "/" },
+  { name: "Sitemap", url: "/sitemap/" }
+]);
+
+const staticPages = [
+  { url: '/', name: 'Home' },
+  { url: '/services/', name: 'All Services' },
+  { url: '/locations/', name: 'All Locations' },
+  { url: '/about/', name: 'About Us' },
+  { url: '/contact/', name: 'Contact Us' },
+  { url: '/faq/', name: 'FAQ' },
+  { url: '/privacy/', name: 'Privacy Policy' },
+  { url: '/terms/', name: 'Terms of Service' },
+  { url: '/cookies/', name: 'Cookie Policy' },
 ];
+
+const servicePages = SERVICES.map(service => ({
+  url: `/services/${service.slug}/`,
+  name: service.name,
+}));
+
+const subServicePages = SERVICES.flatMap(service =>
+  (service.subServices || []).map(sub => ({
+    url: `/services/${service.slug}/${sub.slug}/`,
+    name: `${sub.name} (${service.name})`,
+  }))
+);
+
+const locationPages = INDEXED_LOCATIONS.map(location => ({
+  url: `/locations/${location.slug}/`,
+  name: location.name,
+}));
+
+const serviceLocationPages = INDEXED_LOCATIONS.flatMap(location =>
+  SERVICES.map(service => ({
+    url: `/locations/${location.slug}/${service.slug}/`,
+    name: `${service.name} in ${location.name}`,
+  }))
+);
+
+const blogPages = BLOG_POSTS.map(post => ({
+  url: `/blog/${post.slug}/`,
+  name: post.title,
+}));
+
+const totalPages =
+  staticPages.length +
+  servicePages.length +
+  subServicePages.length +
+  locationPages.length +
+  serviceLocationPages.length +
+  blogPages.length +
+  1; // for /blog/ index page
 ---
 
-<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
-  <Breadcrumbs items={breadcrumbs} />
-
-  <Hero
-    title="Sitemap"
-    subtitle="Browse all pages on our website."
-    compact
-    showCta={false}
-  />
-
-  <section class="section-padding pb-0">
-    <div class="container-narrow mx-auto max-w-4xl">
-      <div class="prose prose-lg mx-auto text-gray-700">
-        <p>Use this HTML sitemap to navigate all pages on the Blocked Drains Swindon website. You will find links to our full range of drainage services, the areas we cover across Swindon and Wiltshire, helpful blog articles, and our legal and policy pages. If you are looking for a specific service in your local area, the Services by Location section below provides direct links to every service-location combination we offer.</p>
-      </div>
-    </div>
-  </section>
-
+<BaseLayout title={title} description={description} canonical="/sitemap/" schema={breadcrumbSchema}>
   <section class="section-padding">
-    <div class="container-narrow mx-auto max-w-4xl">
+    <div class="container-wide px-4">
+      <h1 class="text-3xl font-bold mb-2">Sitemap</h1>
+      <p class="text-muted-foreground mb-8">Total pages: {totalPages}</p>
 
-      <!-- Main Pages -->
-      <div class="mb-12">
-        <h2 class="text-2xl font-bold text-accent border-b border-gray-200 pb-3 mb-4">Main Pages</h2>
-        <ul class="space-y-2 text-gray-700">
-          <li><a href="/" class="text-primary hover:underline">Home</a></li>
-          <li><a href="/about/" class="text-primary hover:underline">About Us</a></li>
-          <li><a href="/contact/" class="text-primary hover:underline">Contact Us</a></li>
-          <li><a href="/faq/" class="text-primary hover:underline">Frequently Asked Questions</a></li>
-          <li><a href="/blog/" class="text-primary hover:underline">Blog</a></li>
-        </ul>
-      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Main Pages -->
+        <div>
+          <h2 class="text-xl font-semibold mb-4">Main Pages</h2>
+          <ul class="space-y-2">
+            {staticPages.map(page => (
+              <li>
+                <a href={page.url} class="text-primary hover:underline">
+                  {page.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <!-- Services -->
-      <div class="mb-12">
-        <h2 class="text-2xl font-bold text-accent border-b border-gray-200 pb-3 mb-4">Our Services</h2>
-        <ul class="space-y-4 text-gray-700">
-          {services.map(service => (
+        <!-- Services -->
+        <div>
+          <h2 class="text-xl font-semibold mb-4">Services ({servicePages.length})</h2>
+          <ul class="space-y-2">
+            {servicePages.map(page => (
+              <li>
+                <a href={page.url} class="text-primary hover:underline">
+                  {page.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          {subServicePages.length > 0 && (
+            <div class="mt-4">
+              <h3 class="font-medium mb-2">Sub-Services ({subServicePages.length})</h3>
+              <ul class="space-y-1 text-sm">
+                {subServicePages.map(page => (
+                  <li>
+                    <a href={page.url} class="text-primary hover:underline">
+                      {page.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+
+        <!-- Locations -->
+        <div>
+          <h2 class="text-xl font-semibold mb-4">Locations ({locationPages.length})</h2>
+          <ul class="space-y-2">
+            {locationPages.map(page => (
+              <li>
+                <a href={page.url} class="text-primary hover:underline">
+                  {page.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Blog -->
+        <div>
+          <h2 class="text-xl font-semibold mb-4">Blog ({blogPages.length})</h2>
+          <ul class="space-y-2">
             <li>
-              <a href={`/services/${service.slug}/`} class="text-primary font-medium hover:underline text-lg">{service.name}</a>
-              {service.subServices.length > 0 && (
-                <ul class="mt-2 ml-6 space-y-1">
-                  {service.subServices.map(sub => (
-                    <li>
-                      <a href={`/services/${service.slug}/${sub.slug}/`} class="text-primary hover:underline">{sub.name}</a>
-                    </li>
-                  ))}
-                </ul>
-              )}
+              <a href="/blog/" class="text-primary hover:underline font-medium">
+                Blog Home
+              </a>
             </li>
+            {blogPages.map(page => (
+              <li>
+                <a href={page.url} class="text-primary hover:underline text-sm">
+                  {page.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Local Services -->
+      <div class="mt-12">
+        <h2 class="text-xl font-semibold mb-4">Local Services ({serviceLocationPages.length})</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {INDEXED_LOCATIONS.map(location => (
+            <div>
+              <h3 class="font-medium mb-2">{location.name}</h3>
+              <ul class="space-y-1 text-sm">
+                {SERVICES.map(service => (
+                  <li>
+                    <a
+                      href={`/locations/${location.slug}/${service.slug}/`}
+                      class="text-primary hover:underline"
+                    >
+                      {service.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ul>
+        </div>
       </div>
 
-      <!-- Locations -->
-      <div class="mb-12">
-        <h2 class="text-2xl font-bold text-accent border-b border-gray-200 pb-3 mb-4">Areas We Cover</h2>
-        <ul class="space-y-2 text-gray-700">
-          {locations.map(location => (
-            <li>
-              <a href={`/locations/${location.slug}/`} class="text-primary hover:underline">{location.name}</a>
-            </li>
-          ))}
-        </ul>
+      <div class="mt-12 pt-8 border-t border-border text-sm text-muted-foreground">
+        <p>
+          <a href="/sitemap.xml" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
+            View XML Sitemap
+          </a>
+        </p>
       </div>
-
-      <!-- Service + Location Combinations -->
-      <div class="mb-12">
-        <h2 class="text-2xl font-bold text-accent border-b border-gray-200 pb-3 mb-4">Services by Location</h2>
-        {services.map(service => (
-          <div class="mb-6">
-            <h3 class="text-lg font-semibold text-accent mb-2">{service.name}</h3>
-            <ul class="grid gap-1 sm:grid-cols-2 lg:grid-cols-3 text-gray-700">
-              {locations.map(location => (
-                <li>
-                  <a href={`/locations/${location.slug}/${service.slug}/`} class="text-primary hover:underline text-sm">
-                    {service.name} in {location.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-
-      <!-- Legal Pages -->
-      <div class="mb-12">
-        <h2 class="text-2xl font-bold text-accent border-b border-gray-200 pb-3 mb-4">Legal</h2>
-        <ul class="space-y-2 text-gray-700">
-          <li><a href="/privacy/" class="text-primary hover:underline">Privacy Policy</a></li>
-          <li><a href="/terms/" class="text-primary hover:underline">Terms &amp; Conditions</a></li>
-          <li><a href="/cookies/" class="text-primary hover:underline">Cookie Policy</a></li>
-        </ul>
-      </div>
-
-      <p class="text-sm text-gray-500">Looking for the XML sitemap? <a href="/sitemap-index.xml" class="text-primary hover:underline">View sitemap-index.xml</a></p>
-
     </div>
   </section>
 </BaseLayout>

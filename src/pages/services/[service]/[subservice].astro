@@ -1,102 +1,155 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
-import Hero from '../../../components/Hero.astro';
+import HeroWithLeadForm from '../../../components/HeroWithLeadForm.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
-import LeadForm from '../../../components/LeadForm.astro';
-import { brand } from '../../../config/brand';
-import { services } from '../../../config/services';
-import { locations } from '../../../config/locations';
-import { subServiceTitle, subServiceDescription } from '../../../config/seo';
-import contentData from '../../../data/ai-content.json';
-const content = contentData as Record<string, string>;
+import { SERVICES, getServiceBySlug, getSubServiceBySlug } from '../../../data/services';
+import { LOCATIONS } from '../../../data/locations';
+import { BRAND } from '../../../data/brand';
+import { getBreadcrumbSchema, getSubServicePageSchema, getFAQSchema } from '../../../utils/schema';
+import { getSubServiceContent } from '../../../data/subServiceContent';
 
-export function getStaticPaths() {
-  return services.flatMap(s =>
-    s.subServices.map(sub => ({
-      params: { service: s.slug, subservice: sub.slug },
-      props: { service: s, subService: sub },
-    }))
+export async function getStaticPaths() {
+  return SERVICES.flatMap((service) =>
+    (service.subServices || []).map((subService) => ({
+      params: { service: service.slug, subservice: subService.slug },
+    })),
   );
 }
 
-const { service, subService } = Astro.props;
-const pageContent = content[`subService:${service.slug}:${subService.slug}`] || '';
-const breadcrumbs = [
-  { name: 'Services', url: '/services/' },
-  { name: service.name, url: `/services/${service.slug}/` },
-  { name: subService.name, url: `/services/${service.slug}/${subService.slug}/` },
-];
+const service = getServiceBySlug(Astro.params.service || '');
+const subService = getSubServiceBySlug(Astro.params.service || '', Astro.params.subservice || '');
+if (!service || !subService) return Astro.redirect('/services/');
 
-const serviceSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: `${subService.name} Swindon`,
-  description: `Professional ${subService.name.toLowerCase()} services in Swindon from ${brand.name}.`,
-  provider: {
-    '@type': 'Plumber',
-    name: brand.name,
-    telephone: brand.phone,
-  },
-};
+const content = getSubServiceContent(subService.slug);
+const faqs = content?.faqs || [];
+
+const title = `${subService.name} Swindon | No Call-Out Fee | 24/7`;
+const description = `${subService.description} No call-out fee, fixed pricing. Call ${BRAND.phoneFormatted} for same-day help in Swindon.`;
+const pageSchema = [
+  ...getSubServicePageSchema(service, subService),
+  getBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services/' },
+    { name: service.name, url: `/services/${service.slug}/` },
+    { name: subService.name, url: `/services/${service.slug}/${subService.slug}/` },
+  ]),
+  ...(faqs.length > 0 ? [getFAQSchema(faqs)] : []),
+];
 ---
 
-<BaseLayout
-  title={subServiceTitle(service, subService)}
-  description={subServiceDescription(service, subService)}
-  breadcrumbs={breadcrumbs}
-  schemas={[serviceSchema]}
->
-  <Breadcrumbs items={breadcrumbs} />
-  <Hero title={`Expert ${subService.name} in Swindon`} subtitle={`Professional ${subService.name.toLowerCase()} services as part of our ${service.name.toLowerCase()} solutions`} compact />
+<BaseLayout title={title} description={description} canonical={`/services/${service.slug}/${subService.slug}/`} schema={pageSchema}>
+  <HeroWithLeadForm
+    title={`${subService.name} in Swindon`}
+    description={subService.description}
+    formId={`subservice-${service.slug}-${subService.slug}-lead-form`}
+    source={`subservice:${service.slug}/${subService.slug}`}
+  />
 
-  <section class="section-padding">
-    <div class="container-narrow mx-auto">
-      <div class="grid gap-12 lg:grid-cols-3">
-        <div class="lg:col-span-2">
-          {pageContent && (
-            <div class="prose prose-lg max-w-none text-gray-700">
-              <Fragment set:html={pageContent} />
-            </div>
-          )}
+  <Breadcrumbs items={[
+    { name: 'Home', url: '/' },
+    { name: 'Services', url: '/services/' },
+    { name: service.name, url: `/services/${service.slug}/` },
+    { name: subService.name },
+  ]} />
 
-          <!-- Available in locations -->
-          <div class="mt-12">
-            <h2 class="text-2xl font-bold text-accent">{subService.name} Near You</h2>
-            <div class="mt-6 grid gap-3 sm:grid-cols-2">
-              {locations.map(l => (
-                <a href={`/locations/${l.slug}/${service.slug}/${subService.slug}/`} class="rounded-lg border border-gray-200 p-4 hover:border-primary hover:shadow-sm transition-all">
-                  <span class="font-medium text-accent">{subService.name} in {l.name}</span>
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <!-- Other sub-services -->
-          <div class="mt-12">
-            <h2 class="text-2xl font-bold text-accent">Other {service.name} Services</h2>
-            <div class="mt-4 flex flex-wrap gap-3">
-              {service.subServices.filter(s => s.slug !== subService.slug).map(s => (
-                <a href={`/services/${service.slug}/${s.slug}/`} class="rounded-full border border-gray-200 px-4 py-2 text-sm hover:border-primary hover:text-primary transition-colors">
-                  {s.name}
-                </a>
-              ))}
-            </div>
-          </div>
+  {/* Detailed description */}
+  {content && (
+    <section class="section-padding bg-white">
+      <div class="container-wide px-4">
+        <div class="max-w-3xl">
+          <h2 class="text-2xl md:text-3xl font-bold mb-4">{subService.name} across Swindon</h2>
+          <p class="text-muted-foreground leading-relaxed">{content.detailedDescription}</p>
         </div>
-
-        <!-- Sidebar -->
-        <aside>
-          <div class="sticky top-28 space-y-6">
-            <div class="rounded-xl bg-primary p-6 text-white">
-              <h3 class="text-xl font-bold">Need Help Now?</h3>
-              <p class="mt-2 text-blue-100">Available 24/7 for emergencies</p>
-              <a href={brand.phoneHref} class="btn-cta mt-4 w-full text-center block">{brand.phone}</a>
-            </div>
-          </div>
-        </aside>
       </div>
+    </section>
+  )}
+
+  {/* Signs You Need This Service + Our Process */}
+  {content && (
+    <section class="section-padding">
+      <div class="container-wide px-4 grid md:grid-cols-2 gap-8">
+        <article class="bg-card p-6 rounded-xl border border-border shadow-sm">
+          <h2 class="text-xl font-bold mb-4">Signs you need {subService.name.toLowerCase()} help</h2>
+          <ul class="space-y-2">
+            {content.signsYouNeed.map((sign) => (
+              <li class="flex items-start gap-2">
+                <span class="text-primary mt-1 shrink-0">&#10003;</span>
+                <span class="text-muted-foreground text-sm">{sign}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+        <article class="bg-card p-6 rounded-xl border border-border shadow-sm">
+          <h2 class="text-xl font-bold mb-4">Our process</h2>
+          <ol class="space-y-3">
+            {content.processSteps.map((step, i) => (
+              <li class="flex items-start gap-3">
+                <span class="text-primary font-bold shrink-0">{i + 1}.</span>
+                <div>
+                  <strong class="text-sm">{step.title}</strong>
+                  <p class="text-muted-foreground text-sm mt-0.5">{step.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </article>
+      </div>
+    </section>
+  )}
+
+  {/* Pricing Guide */}
+  {content && (
+    <section class="section-padding bg-white">
+      <div class="container-wide px-4">
+        <div class="max-w-3xl">
+          <h2 class="text-2xl md:text-3xl font-bold mb-4">Pricing guide</h2>
+          <p class="text-muted-foreground leading-relaxed">{content.pricingGuide}</p>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* FAQ section */}
+  {faqs.length > 0 && (
+    <section class="section-padding">
+      <div class="container-wide px-4">
+        <h2 class="text-2xl md:text-3xl font-bold mb-8">{subService.name} — frequently asked questions</h2>
+        <div class="max-w-3xl mx-auto space-y-4">
+          {faqs.map((faq, i) => (
+            <details class="bg-card rounded-lg card-elevated group" open={i === 0}>
+              <summary class="p-4 md:p-6 cursor-pointer font-semibold text-lg hover:text-primary transition-colors flex items-center justify-between">
+                {faq.question}
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 ml-2 group-open:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"></path></svg>
+              </summary>
+              <div class="px-4 md:px-6 pb-4 md:pb-6 text-muted-foreground"><p>{faq.answer}</p></div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* Related links + Nearby locations */}
+  <section class="section-padding bg-white">
+    <div class="container-wide px-4 grid md:grid-cols-2 gap-8">
+      {content && content.relatedLinks.length > 0 && (
+        <article class="bg-card p-6 rounded-xl border border-border shadow-sm">
+          <h2 class="text-xl font-bold mb-4">Related services</h2>
+          <div class="grid gap-3">
+            {content.relatedLinks.map((link) => (
+              <a href={link.href}>{link.text}</a>
+            ))}
+          </div>
+        </article>
+      )}
+      <article class="bg-card p-6 rounded-xl border border-border shadow-sm">
+        <h2 class="text-xl font-bold mb-4">Nearby locations</h2>
+        <div class="grid gap-3">
+          {LOCATIONS.map((location) => (
+            <a href={`/locations/${location.slug}/${service.slug}/`}>{subService.name} in {location.name}</a>
+          ))}
+        </div>
+      </article>
     </div>
   </section>
-
-  <LeadForm sourcePage={`/services/${service.slug}/${subService.slug}/`} preselectedService={service.slug} />
 </BaseLayout>

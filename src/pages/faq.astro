@@ -1,123 +1,117 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import LeadForm from '../components/LeadForm.astro';
-import FAQAccordion from '../components/FAQAccordion.astro';
-import { brand } from '../config/brand';
-import contentData from '../data/ai-content.json';
-const content = contentData as Record<string, string>;
+import { BRAND } from '../data/brand';
+import { SERVICES } from '../data/services';
+import { PAGE_FAQS } from '../data/faqs';
+import { getBreadcrumbSchema, getFAQSchema, getWebPageSchema, serializeSchema } from '../utils/schema';
 
-const title = `Drain FAQs | Common Questions | ${brand.name}`;
-const description = `Frequently asked questions about blocked drains, drain unblocking, CCTV surveys, and drainage services in Swindon. Get answers from ${brand.name}.`;
+// SEO-optimized title (50-60 chars)
+const title = `Blocked Drains Swindon FAQ | Drainage Questions`;
 
-const breadcrumbs = [
-  { name: 'FAQ', url: '/faq/' },
+// SEO-optimized description (120-155 chars) with benefits and CTA
+const description = `Find answers to common questions about blocked drains, costs, response times, and emergency callouts in Swindon. Still need help? Call ${BRAND.phoneFormatted}.`;
+
+const keywords = "blocked drains Swindon FAQ, drain unblocking questions, drainage frequently asked questions Swindon";
+
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "FAQs", url: "/faq/" }
 ];
 
-const pageContent = content['faq:page'] || '';
+const breadcrumbSchema = getBreadcrumbSchema(breadcrumbItems);
+const faqSchema = getFAQSchema(PAGE_FAQS);
+const webPageSchema = getWebPageSchema({
+  url: '/faq/',
+  name: title,
+  description: description,
+  breadcrumb: breadcrumbItems
+});
 
-const faqs = [
-  {
-    question: 'How quickly can you respond to a drainage emergency?',
-    answer: `We aim to be with you within 1 hour for emergency call-outs across Swindon and surrounding areas. Our drainage engineers are available 24 hours a day, 7 days a week, 365 days a year. Call us on <a href="${brand.phoneHref}" class="text-primary hover:underline">${brand.phone}</a> for immediate assistance.`,
-  },
-  {
-    question: 'Do you charge a call-out fee?',
-    answer: 'No, we do not charge a call-out fee. You only pay for the work carried out. We always provide a clear, upfront quote before starting any job, so you know exactly what to expect with no hidden costs.',
-  },
-  {
-    question: 'What causes blocked drains?',
-    answer: 'Blocked drains can be caused by a range of issues including the build-up of grease and fat, hair, soap residue, food waste, wet wipes (even those labelled "flushable"), tree root ingress, collapsed or cracked pipes, and the accumulation of silt and debris over time. Our CCTV drain surveys can quickly identify the exact cause.',
-  },
-  {
-    question: 'Are your drainage engineers qualified and insured?',
-    answer: 'Yes, all our engineers are fully qualified and carry comprehensive public liability insurance. They are trained to the highest industry standards and regularly update their skills to keep up with the latest drainage technology and techniques.',
-  },
-  {
-    question: 'What areas do you cover?',
-    answer: 'We cover Swindon and the surrounding Wiltshire area, including Royal Wootton Bassett, Highworth, Purton, Cricklade, Wroughton, and many other nearby towns and villages. If you are unsure whether we cover your area, please give us a call.',
-  },
-  {
-    question: 'What is CCTV drain surveying?',
-    answer: 'CCTV drain surveying involves inserting a small, high-definition camera into your drainage system to inspect the inside of your pipes. This allows us to identify blockages, cracks, root ingress, collapsed sections, and other issues without the need for excavation. It is a non-invasive, accurate, and cost-effective diagnostic tool.',
-  },
-  {
-    question: 'How much does drain unblocking cost?',
-    answer: 'The cost of drain unblocking depends on the severity of the blockage, the location, and the method required to clear it. Simple blockages may cost from around &pound;75, while more complex issues may cost more. We always provide a free, no-obligation quote before starting work.',
-  },
-  {
-    question: 'What is high-pressure drain jetting?',
-    answer: 'High-pressure drain jetting uses a powerful stream of water to clear blockages and clean the inside of drain pipes. It is extremely effective at removing stubborn build-ups of grease, fat, silt, tree roots, and other debris. It is safe for most types of pipes and is one of the most efficient drain cleaning methods available.',
-  },
-  {
-    question: 'Can you unblock drains without digging?',
-    answer: 'In most cases, yes. We use techniques such as high-pressure water jetting and electro-mechanical cleaning to clear blockages without excavation. For damaged pipes, we can often use no-dig repair methods such as drain relining. However, in severe cases where a pipe has completely collapsed, excavation may be necessary.',
-  },
-  {
-    question: 'Do I need a CCTV survey before buying a property?',
-    answer: 'A pre-purchase CCTV drain survey is highly recommended before buying a property. It can reveal hidden drainage issues such as cracked or collapsed pipes, root ingress, or misaligned joints that may not be visible during a standard house survey. Identifying these problems before purchase can save you thousands in unexpected repair costs.',
-  },
-  {
-    question: 'What payment methods do you accept?',
-    answer: 'We accept cash, bank transfer, and all major credit and debit cards for your convenience. Payment is due upon completion of the work.',
-  },
-  {
-    question: 'How can I prevent my drains from blocking?',
-    answer: 'To help prevent blocked drains: avoid pouring cooking fats and oils down the sink (let them cool and dispose of them in the bin), use drain guards to catch hair and food debris, never flush wet wipes, cotton buds, or sanitary products, run hot water down the sink after washing up, and consider having your drains professionally cleaned annually.',
-  },
-  {
-    question: 'What should I do if I have a sewage leak or flooding?',
-    answer: `Sewage leaks and flooding are considered emergencies. Call us immediately on <a href="${brand.phoneHref}" class="text-primary hover:underline">${brand.phone}</a> for 24/7 emergency assistance. In the meantime, avoid contact with the sewage water, keep children and pets away from the affected area, turn off any water appliances if safe to do so, and do not attempt to unblock the drain yourself.`,
-  },
-];
-
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqs.map(f => ({
-    '@type': 'Question',
-    name: f.question,
-    acceptedAnswer: { '@type': 'Answer', text: f.answer.replace(/<[^>]*>/g, '') },
-  })),
-};
+const combinedPageSchema = [breadcrumbSchema, faqSchema, webPageSchema];
 ---
 
-<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs} schemas={[faqSchema]}>
-  <Breadcrumbs items={breadcrumbs} />
-
-  <Hero
-    title="Frequently Asked Questions"
-    subtitle="Find answers to common questions about our drainage services in Swindon."
-    compact
-    showCta={false}
-  />
-
-  <!-- FAQ Intro Content -->
-  {pageContent && (
-    <section class="section-padding">
-      <div class="container-narrow mx-auto max-w-3xl">
-        <div class="prose prose-lg mx-auto text-gray-700">
-          <Fragment set:html={pageContent} />
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- FAQ Accordion -->
-  <section class={`section-padding ${pageContent ? 'bg-gray-50' : ''}`}>
-    <div class="container-narrow mx-auto max-w-3xl">
-      <h2 class="text-center text-3xl font-bold text-accent">Your Questions Answered</h2>
-      <p class="mt-3 text-center text-gray-600">
-        Can't find what you're looking for? Call us on
-        <a href={brand.phoneHref} class="text-primary font-medium hover:underline">{brand.phone}</a>
-        or <a href="/contact/" class="text-primary font-medium hover:underline">send us a message</a>.
-      </p>
-      <div class="mt-8">
-        <FAQAccordion faqs={faqs} />
+<BaseLayout title={title} description={description} canonical="/faq/" schema={combinedPageSchema} keywords={keywords}>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-overlay py-16 md:py-20">
+      <div class="container-wide px-4 text-center text-white">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Frequently Asked Questions</h1>
+        <p class="text-lg text-white/90 max-w-2xl mx-auto">
+          Answers to common questions about our drainage services
+        </p>
       </div>
     </div>
   </section>
 
-  <LeadForm sourcePage="/faq/" />
+  <!-- FAQ Content -->
+  <section class="section-padding">
+    <div class="container-wide px-4">
+      <div class="max-w-3xl mx-auto">
+        <div class="space-y-4">
+          {PAGE_FAQS.map((faq) => (
+            <details class="bg-card rounded-lg card-elevated group">
+              <summary class="p-4 md:p-6 cursor-pointer font-semibold text-lg hover:text-primary transition-colors flex items-center justify-between">
+                {faq.question}
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 ml-2 group-open:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"></path></svg>
+              </summary>
+              <div class="px-4 md:px-6 pb-4 md:pb-6 text-muted-foreground" set:html={faq.answer}>
+              </div>
+            </details>
+          ))}
+        </div>
+
+        <!-- Quick Links to Services -->
+        <div class="mt-12 pt-8 border-t border-border">
+          <h2 class="text-xl font-bold mb-4">Explore Our Services</h2>
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-6">
+            {SERVICES.map((service) => (
+              <a href={`/services/${service.slug}/`} class="flex items-center gap-2 p-3 bg-muted rounded-lg hover:bg-muted/70 transition-colors">
+                <span class="text-xl">{service.icon}</span>
+                <span class="font-medium text-sm">{service.name}</span>
+              </a>
+            ))}
+          </div>
+          <p class="text-sm text-muted-foreground">
+            <a href="/" class="text-primary hover:underline">Home</a>
+            {" · "}
+            <a href="/services/" class="text-primary hover:underline">All Services</a>
+            {" · "}
+            <a href="/locations/" class="text-primary hover:underline">All Locations</a>
+            {" · "}
+            <a href="/blog/" class="text-primary hover:underline">Blog</a>
+            {" · "}
+            <a href="/about/" class="text-primary hover:underline">About Us</a>
+          </p>
+        </div>
+
+        <div class="mt-12 text-center">
+          <h2 class="text-2xl font-bold mb-4">Still have questions?</h2>
+          <p class="text-muted-foreground mb-6">
+            Our friendly team is here to help with any drainage questions you may have.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href={`tel:${BRAND.phone}`} class="btn-primary">
+              Call {BRAND.phoneFormatted}
+            </a>
+            <a href="/contact/" class="btn-outline">
+              Contact Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section-padding bg-primary text-primary-foreground">
+    <div class="container-wide px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">Need Drainage Help?</h2>
+      <p class="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
+        Our expert team is available 24/7 for emergency callouts across {BRAND.serviceAreaLabel}.
+      </p>
+      <a href={`tel:${BRAND.phone}`} class="bg-white text-primary font-semibold px-8 py-4 rounded-lg shadow-lg hover:bg-white/90 transition-all text-lg inline-block">
+        Call {BRAND.phoneFormatted}
+      </a>
+    </div>
+  </section>
 </BaseLayout>

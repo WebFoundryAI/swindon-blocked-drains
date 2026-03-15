@@ -1,114 +1,100 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
 import LeadForm from '../components/LeadForm.astro';
-import { brand } from '../config/brand';
+import { BRAND } from '../data/brand';
+import { getBaseBusinessSchema, getBreadcrumbSchema, getFAQSchema } from '../utils/schema';
+import { CONTACT_CONTENT } from '../data/staticContent';
 
-const title = `Contact Us | ${brand.name} | ${brand.phone}`;
-const description = `Get in touch with ${brand.name}. Call ${brand.phone} for 24/7 emergency drain services in Swindon or fill in our contact form for a free quote.`;
+const title = `Contact Swindon | Call ${BRAND.phoneFormatted}`;
+const description = `Contact ${BRAND.brandName} for emergency and routine drainage services across Swindon and surrounding Wiltshire areas. Call ${BRAND.phoneFormatted} or submit a quote request.`;
 
-const breadcrumbs = [
-  { name: 'Contact Us', url: '/contact/' },
+const pageSchema = [
+  getBaseBusinessSchema(),
+  getBreadcrumbSchema([
+    { name: 'Home', url: '/' },
+    { name: 'Contact', url: '/contact/' },
+  ]),
+  getFAQSchema(CONTACT_CONTENT.faqs),
 ];
 ---
 
-<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
-  <Breadcrumbs items={breadcrumbs} />
+<BaseLayout title={title} description={description} canonical="/contact/" schema={pageSchema}>
+  <section class="section-padding bg-white">
+    <div class="container-wide px-4 grid md:grid-cols-2 gap-8">
+      <div class="bg-card p-6 rounded-xl border border-border shadow-sm">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4">Contact our drainage team</h1>
+        <p class="text-muted-foreground mb-6">Call us for immediate support or send your details and we'll call back quickly.</p>
 
-  <Hero
-    title="Contact Us"
-    subtitle="Get in touch for a free, no-obligation quote or 24/7 emergency assistance."
-    compact
-    showCta={false}
-  />
+        <p><strong>Phone:</strong> <a href={`tel:${BRAND.phone}`}>{BRAND.phoneFormatted}</a></p>
+        <p><strong>Email:</strong> <a href={`mailto:${BRAND.email}`}>{BRAND.email}</a></p>
+        <p><strong>Address:</strong> {BRAND.addressLine1}, {BRAND.addressLine2}, {BRAND.postcode}</p>
+        <p><strong>Hours:</strong> 24/7 emergency response</p>
+      </div>
 
-  <!-- Contact Info Cards -->
+      <div id="quote-form">
+        <LeadForm formId="contact-lead-form" source="contact-page" heading="Request a free quote" />
+      </div>
+    </div>
+  </section>
+
+  {/* Service area overview */}
   <section class="section-padding">
-    <div class="container-narrow mx-auto">
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-
-        <!-- Phone -->
-        <div class="rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm">
-          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-primary" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
-            </svg>
-          </div>
-          <h2 class="mt-4 text-lg font-semibold text-accent">Call Us</h2>
-          <p class="mt-2 text-gray-600">Available 24 hours a day, 7 days a week for emergencies.</p>
-          <a href={brand.phoneHref} class="mt-4 inline-block text-xl font-bold text-primary hover:underline">
-            {brand.phone}
-          </a>
-        </div>
-
-        <!-- Email -->
-        <div class="rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm">
-          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-primary" viewBox="0 0 20 20" fill="currentColor">
-              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
-              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
-            </svg>
-          </div>
-          <h2 class="mt-4 text-lg font-semibold text-accent">Email Us</h2>
-          <p class="mt-2 text-gray-600">Send us a message and we will respond promptly.</p>
-          <a href={`mailto:${brand.email}`} class="mt-4 inline-block text-lg font-bold text-primary hover:underline break-all">
-            {brand.email}
-          </a>
-        </div>
-
-        <!-- Service Area -->
-        <div class="rounded-xl border border-gray-200 bg-white p-6 text-center shadow-sm sm:col-span-2 lg:col-span-1">
-          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-primary" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
-            </svg>
-          </div>
-          <h2 class="mt-4 text-lg font-semibold text-accent">Service Area</h2>
-          <p class="mt-2 text-gray-600">We cover Swindon and the wider Wiltshire area.</p>
-          <ul class="mt-4 text-sm text-gray-700 space-y-1">
-            <li>Swindon (Town Centre &amp; Old Town)</li>
-            <li>Royal Wootton Bassett</li>
-            <li>Highworth</li>
-            <li>Purton</li>
-            <li>Cricklade</li>
-            <li>Wroughton</li>
-          </ul>
-        </div>
-
+    <div class="container-wide px-4">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4">Areas we cover across Swindon and surrounding Wiltshire areas</h2>
+        <p class="text-muted-foreground leading-relaxed">{CONTACT_CONTENT.serviceAreaOverview}</p>
       </div>
     </div>
   </section>
 
-  <!-- Opening Hours -->
-  <section class="section-padding bg-gray-50">
-    <div class="container-narrow mx-auto max-w-2xl">
-      <h2 class="text-center text-3xl font-bold text-accent">Opening Hours</h2>
-      <p class="mt-2 text-center text-gray-600">We are available around the clock for emergencies.</p>
-      <div class="mt-8 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-        <table class="w-full text-left text-sm" aria-label="Opening hours">
-          <tbody>
-            <tr class="border-b">
-              <td class="px-6 py-4 font-medium text-accent">Monday &ndash; Friday</td>
-              <td class="px-6 py-4 text-gray-600">07:00 &ndash; 22:00</td>
-            </tr>
-            <tr class="border-b">
-              <td class="px-6 py-4 font-medium text-accent">Saturday</td>
-              <td class="px-6 py-4 text-gray-600">08:00 &ndash; 20:00</td>
-            </tr>
-            <tr class="border-b">
-              <td class="px-6 py-4 font-medium text-accent">Sunday</td>
-              <td class="px-6 py-4 text-gray-600">09:00 &ndash; 18:00</td>
-            </tr>
-            <tr>
-              <td class="px-6 py-4 font-medium text-primary">Emergency Call-Outs</td>
-              <td class="px-6 py-4 font-medium text-primary">24/7 &ndash; 365 days a year</td>
-            </tr>
-          </tbody>
-        </table>
+  {/* Business hours + Emergency info */}
+  <section class="section-padding bg-white">
+    <div class="container-wide px-4 grid md:grid-cols-2 gap-8">
+      <article class="bg-card p-6 rounded-xl border border-border shadow-sm">
+        <h2 class="text-xl font-bold mb-4">Business hours and availability</h2>
+        <p class="text-muted-foreground">{CONTACT_CONTENT.businessHours}</p>
+      </article>
+      <article class="bg-card p-6 rounded-xl border border-primary shadow-sm bg-primary/5">
+        <h2 class="text-xl font-bold mb-4">Drainage emergency?</h2>
+        <p class="text-muted-foreground mb-4">{CONTACT_CONTENT.emergencyInfo}</p>
+        <a href={`tel:${BRAND.phone}`} class="inline-block bg-primary text-white font-semibold px-6 py-3 rounded-lg hover:opacity-90 transition-opacity">Call {BRAND.phoneFormatted} now</a>
+      </article>
+    </div>
+  </section>
+
+  {/* What to tell us when you call */}
+  <section class="section-padding">
+    <div class="container-wide px-4">
+      <div class="max-w-3xl">
+        <h2 class="text-2xl md:text-3xl font-bold mb-6">What to tell us when you call</h2>
+        <p class="text-muted-foreground mb-4">Having these details ready helps us dispatch the right engineer with the right equipment, giving you the fastest possible resolution:</p>
+        <ul class="space-y-2">
+          {CONTACT_CONTENT.whatToTellUs.map((item) => (
+            <li class="flex items-start gap-2">
+              <span class="text-primary mt-1 shrink-0">&#10003;</span>
+              <span class="text-muted-foreground">{item}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
 
-  <LeadForm sourcePage="/contact/" />
+  {/* Contact FAQs */}
+  <section class="section-padding bg-white">
+    <div class="container-wide px-4">
+      <h2 class="text-2xl md:text-3xl font-bold mb-8">Frequently asked questions</h2>
+      <div class="max-w-3xl mx-auto space-y-4">
+        {CONTACT_CONTENT.faqs.map((faq, i) => (
+          <details class="bg-card rounded-lg card-elevated group" open={i === 0}>
+            <summary class="p-4 md:p-6 cursor-pointer font-semibold text-lg hover:text-primary transition-colors flex items-center justify-between">
+              {faq.question}
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shrink-0 ml-2 group-open:rotate-180 transition-transform"><path d="m6 9 6 6 6-6"></path></svg>
+            </summary>
+            <div class="px-4 md:px-6 pb-4 md:pb-6 text-muted-foreground"><p>{faq.answer}</p></div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
 </BaseLayout>

@@ -4,7 +4,13 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://swindonblockeddrains.co.uk',
+  integrations: [
+    tailwind(),
+    sitemap(),
+  ],
   output: 'static',
-  integrations: [tailwind(), sitemap()],
-  build: { format: 'directory' },
+  build: {
+    format: 'directory',
+  },
+  trailingSlash: 'always',
 });

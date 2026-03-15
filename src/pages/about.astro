@@ -1,102 +1,149 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Hero from '../components/Hero.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import LeadForm from '../components/LeadForm.astro';
-import { brand } from '../config/brand';
-import contentData from '../data/ai-content.json';
-const content = contentData as Record<string, string>;
+import { BRAND } from '../data/brand';
+import { SERVICES } from '../data/services';
+import { LOCATIONS } from '../data/locations';
+import { ABOUT_CONTENT } from '../data/staticContent';
+import { getBreadcrumbSchema, getWebPageSchema, serializeSchema } from '../utils/schema';
 
-const title = `About Us | ${brand.name}`;
-const description = `Learn about ${brand.name} - your trusted local drainage company. Fully insured engineers, 24/7 emergency service, no call-out charge.`;
+// SEO-optimized title (50-60 chars)
+const title = `About Us | Swindon's Trusted Drainage Specialists`;
 
-const breadcrumbs = [
-  { name: 'About Us', url: '/about/' },
+// SEO-optimized description (120-155 chars) with benefits and CTA
+const description = `Meet ${BRAND.brandName} - fully insured drainage engineers serving Swindon and surrounding Wiltshire areas 24/7. No call-out fee. Call ${BRAND.phoneFormatted}.`;
+
+const breadcrumbItems = [
+  { name: "Home", url: "/" },
+  { name: "About Us", url: "/about/" }
 ];
 
-const pageContent = content['about:page'] || '';
+const breadcrumbSchema = getBreadcrumbSchema(breadcrumbItems);
 
-const fallbackContent = `
-<h2>Your Trusted Local Drainage Experts in Swindon</h2>
-<p>${brand.name} is a locally owned and operated drainage company serving Swindon and the surrounding Wiltshire area. With years of hands-on experience, our team of fully qualified and insured drainage engineers is dedicated to providing fast, reliable, and affordable solutions for all your drainage needs.</p>
+const webPageSchema = getWebPageSchema({
+  url: '/about/',
+  name: title,
+  description: description,
+  breadcrumb: breadcrumbItems
+});
 
-<h3>Why Choose Us?</h3>
-<p>We understand that drainage problems can be stressful and disruptive, which is why we pride ourselves on delivering a prompt, professional service every time. Whether you have a blocked drain at home, a commercial drainage emergency, or need a pre-purchase CCTV drain survey, we have the expertise and equipment to get the job done right.</p>
-
-<ul>
-  <li><strong>24/7 Emergency Service</strong> &ndash; Drainage emergencies don&rsquo;t wait, and neither do we. Our engineers are on call around the clock to respond to urgent issues across Swindon.</li>
-  <li><strong>No Call-Out Charge</strong> &ndash; We never charge a call-out fee. You only pay for the work we carry out, with a clear, upfront quote before we begin.</li>
-  <li><strong>Fully Insured &amp; Qualified</strong> &ndash; All our engineers carry full public liability insurance and are trained to the highest industry standards.</li>
-  <li><strong>Latest Equipment</strong> &ndash; From high-pressure water jetting rigs to HD CCTV drain cameras, we invest in modern technology to diagnose and resolve problems quickly.</li>
-  <li><strong>Local Knowledge</strong> &ndash; As a Swindon-based company, we know the local drainage infrastructure inside out, allowing us to work efficiently and effectively.</li>
-</ul>
-
-<h3>Our Services</h3>
-<p>We offer a comprehensive range of drainage services to domestic and commercial customers across Swindon and Wiltshire, including:</p>
-<ul>
-  <li>Blocked drain clearance</li>
-  <li>Drain unblocking (internal and external)</li>
-  <li>High-pressure drain jetting</li>
-  <li>CCTV drain surveys and inspections</li>
-  <li>Emergency drain services (24/7)</li>
-  <li>Drain repairs, relining, and excavation</li>
-</ul>
-
-<h3>Serving Swindon &amp; Surrounding Areas</h3>
-<p>We proudly serve customers across Swindon town centre, Old Town, and the wider Wiltshire area including Royal Wootton Bassett, Highworth, Purton, Cricklade, and Wroughton. No matter where you are in our coverage area, we aim to be with you within the hour for emergencies.</p>
-
-<p>If you have a drainage problem or would like a free, no-obligation quote, don&rsquo;t hesitate to <a href="/contact/">get in touch</a> or call us on <a href="${brand.phoneHref}">${brand.phone}</a>.</p>
-`;
+const combinedPageSchema = [breadcrumbSchema, webPageSchema];
 ---
 
-<BaseLayout title={title} description={description} breadcrumbs={breadcrumbs}>
-  <Breadcrumbs items={breadcrumbs} />
+<BaseLayout title={title} description={description} canonical="/about/" schema={combinedPageSchema}>
 
-  <Hero
-    title="About Us"
-    subtitle={`${brand.name} - Your local drainage experts in Swindon, Wiltshire.`}
-    compact
-    showCta={false}
-  />
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-overlay py-16 md:py-20">
+      <div class="container-wide px-4 text-center text-white">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">About {BRAND.brandName}</h1>
+        <p class="text-lg text-white/90 max-w-2xl mx-auto">
+          Your trusted drainage specialists serving {BRAND.serviceAreaLabel}
+        </p>
+      </div>
+    </div>
+  </section>
 
-  <!-- About Content -->
+  <!-- Main Content -->
   <section class="section-padding">
-    <div class="container-narrow mx-auto max-w-3xl">
-      <div class="prose prose-lg mx-auto text-gray-700">
-        <Fragment set:html={pageContent || fallbackContent} />
+    <div class="container-narrow px-4">
+      <div class="prose prose-lg max-w-none">
+        <h2 class="text-2xl font-bold mb-4">Trusted Drainage Specialists in {BRAND.serviceAreaLabel}</h2>
+        {ABOUT_CONTENT.split('\n\n').map((paragraph) => (
+          <p class="text-muted-foreground mb-6">{paragraph}</p>
+        ))}
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-6 mt-12">
+        <div class="text-center p-6 bg-muted/50 rounded-xl">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          </div>
+          <h3 class="font-bold mb-2">Experienced Team</h3>
+          <p class="text-sm text-muted-foreground">Fully trained and insured engineers</p>
+        </div>
+        <div class="text-center p-6 bg-muted/50 rounded-xl">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><circle cx="12" cy="12" r="10"></circle><polyline points="12,6 12,12 16,14"></polyline></svg>
+          </div>
+          <h3 class="font-bold mb-2">24/7 Available</h3>
+          <p class="text-sm text-muted-foreground">Emergency service when you need it</p>
+        </div>
+        <div class="text-center p-6 bg-muted/50 rounded-xl">
+          <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+          </div>
+          <h3 class="font-bold mb-2">Fully Insured</h3>
+          <p class="text-sm text-muted-foreground">Complete peace of mind guaranteed</p>
+        </div>
+      </div>
+
+      <!-- Explore Our Services -->
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold mb-6">Our Drainage Services</h2>
+        <p class="text-muted-foreground mb-6">
+          We offer a comprehensive range of <a href="/services/" class="text-primary hover:underline">drainage services</a> to homes and businesses across Swindon and surrounding Wiltshire areas.
+        </p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {SERVICES.map((service) => (
+            <a href={`/services/${service.slug}/`} class="flex items-center gap-3 p-4 bg-muted/50 rounded-lg hover:bg-muted transition-colors">
+              <span class="text-2xl">{service.icon}</span>
+              <div>
+                <span class="font-medium block">{service.name}</span>
+                <span class="text-sm text-muted-foreground">{service.shortLabel}</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Areas We Cover -->
+      <div class="mt-12">
+        <h2 class="text-2xl font-bold mb-6">Areas We Cover</h2>
+        <p class="text-muted-foreground mb-6">
+          Our local engineers provide fast-response drainage services across <a href="/locations/" class="text-primary hover:underline">Swindon and surrounding Wiltshire areas</a>, including:
+        </p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+          {LOCATIONS.slice(0, 4).map((loc) => (
+            <a href={`/locations/${loc.slug}/`} class="flex items-center gap-2 p-3 bg-muted/50 rounded-lg hover:bg-muted transition-colors">
+              <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary shrink-0"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+              <span class="font-medium text-sm">{loc.name}</span>
+            </a>
+          ))}
+          <a href="/locations/" class="flex items-center gap-2 p-3 bg-primary/5 rounded-lg hover:bg-primary/10 transition-colors text-primary">
+            <span class="font-medium text-sm">View all areas</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Helpful Links -->
+      <div class="mt-12 pt-8 border-t border-border">
+        <p class="text-sm text-muted-foreground">
+          <a href="/" class="text-primary hover:underline">Home</a>
+          {" · "}
+          <a href="/services/" class="text-primary hover:underline">All Services</a>
+          {" · "}
+          <a href="/locations/" class="text-primary hover:underline">All Locations</a>
+          {" · "}
+          <a href="/blog/" class="text-primary hover:underline">Blog</a>
+          {" · "}
+          <a href="/faq/" class="text-primary hover:underline">FAQs</a>
+          {" · "}
+          <a href="/contact/" class="text-primary hover:underline">Contact Us</a>
+        </p>
       </div>
     </div>
   </section>
 
-  <!-- Why Us Summary -->
-  <section class="section-padding bg-gray-50">
-    <div class="container-narrow mx-auto">
-      <h2 class="text-center text-3xl font-bold text-accent">Why Customers Choose Us</h2>
-      <div class="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        <div class="rounded-xl bg-white p-6 shadow-sm text-center">
-          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-3xl">
-            <span>&#9201;</span>
-          </div>
-          <h3 class="mt-4 text-lg font-semibold text-accent">Rapid Response</h3>
-          <p class="mt-2 text-gray-600">We aim to reach you within 1 hour for emergency call-outs across Swindon and surrounding areas.</p>
-        </div>
-        <div class="rounded-xl bg-white p-6 shadow-sm text-center">
-          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-3xl">
-            <span>&#163;</span>
-          </div>
-          <h3 class="mt-4 text-lg font-semibold text-accent">No Call-Out Fee</h3>
-          <p class="mt-2 text-gray-600">We never charge a call-out fee. You only pay for the work carried out, with a clear quote provided upfront.</p>
-        </div>
-        <div class="rounded-xl bg-white p-6 shadow-sm text-center">
-          <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 text-3xl">
-            <span>&#9989;</span>
-          </div>
-          <h3 class="mt-4 text-lg font-semibold text-accent">Fully Insured</h3>
-          <p class="mt-2 text-gray-600">All our engineers are fully insured and trained to the highest industry standards for your complete peace of mind.</p>
-        </div>
-      </div>
+  <!-- CTA Section -->
+  <section class="section-padding bg-primary text-primary-foreground">
+    <div class="container-wide px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+      <p class="text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto">
+        Contact us today for a free, no-obligation quote.
+      </p>
+      <a href={`tel:${BRAND.phone}`} class="bg-white text-primary font-semibold px-8 py-4 rounded-lg shadow-lg hover:bg-white/90 transition-all text-lg inline-block">
+        Call {BRAND.phoneFormatted}
+      </a>
     </div>
   </section>
-
-  <LeadForm sourcePage="/about/" />
 </BaseLayout>

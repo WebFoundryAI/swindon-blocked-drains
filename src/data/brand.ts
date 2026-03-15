@@ -12,7 +12,7 @@ export const BRAND = {
   tagline: "Fast, Reliable Drain Unblocking in Swindon",
   emergencyAvailable: true,
 
-  // Per-site tracking & verification — mirrors src/config/brand.ts gaId
+  // Per-site tracking & verification — update these when cloning the template
   ga4Id: "G-CB8VD65Z4Y",
   gscVerification: "google961cee0b68e77cd7",
 
