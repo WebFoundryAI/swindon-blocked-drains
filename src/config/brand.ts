@@ -1,7 +1,7 @@
 export const brand = {
   name: 'Blocked Drains Swindon',
-  phone: '01793 487489',
-  phoneHref: 'tel:01793487489',
+  phone: '01793 608800',
+  phoneHref: 'tel:01793608800',
   email: 'info@swindonblockeddrains.co.uk',
   domain: 'swindonblockeddrains.co.uk',
   url: 'https://swindonblockeddrains.co.uk',
