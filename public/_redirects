@@ -11,3 +11,4 @@
 /location/cricklade/* /locations/cricklade/:splat 301
 /location/wroughton /locations/wroughton/ 301
 /location/wroughton/* /locations/wroughton/:splat 301
+/sitemap.xml /sitemap-index.xml 301
