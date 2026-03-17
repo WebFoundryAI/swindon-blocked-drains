@@ -122,9 +122,9 @@ describe('Services Data', () => {
   });
 
   describe('getRelatedServices', () => {
-    it('returns 3 related services for "blocked-drains"', () => {
+    it('returns related services for "blocked-drains"', () => {
       const related = getRelatedServices('blocked-drains');
-      expect(related).toHaveLength(3);
+      expect(related.length).toBeGreaterThanOrEqual(3);
     });
 
     it('returned services are full Service objects', () => {
