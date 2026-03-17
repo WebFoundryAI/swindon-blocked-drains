@@ -146,7 +146,7 @@ Understanding your local geology helps explain why:
 - Some properties in north Swindon are particularly prone to infiltration during wet winters
 - Older properties in central Swindon have a higher rate of joint displacement
 
-If you are experiencing persistent drainage problems and standard clearing does not resolve them, a [CCTV drain survey](/services/cctv-drain-surveys/) will reveal whether geological factors are affecting your pipes. Our engineers understand Swindon's ground conditions and can advise on the most appropriate long-term solution.
+If you are experiencing persistent drainage problems and standard clearing does not resolve them, a [CCTV drain survey](/services/cctv-drain-surveys/) will reveal whether geological factors are affecting your pipes. Where survey results show cracked, displaced, or deformed pipes, our [drain repair and pipe relining service](/services/drain-repairs/) offers trenchless fixes that restore full pipe integrity without excavating your garden or driveway. Our engineers understand Swindon's ground conditions and can advise on the most appropriate long-term solution.
 
 Call ${BRAND.brandName} on ${BRAND.phoneFormatted} for expert drainage advice across [Swindon](/locations/swindon/) and the surrounding Wiltshire area.`,
     author: "Swindon",
@@ -201,6 +201,8 @@ After the survey, you receive a detailed report including:
 - A description of each defect with its location and severity
 - Recommendations for remedial work
 - A no-obligation quote for any repairs required
+
+Where defects are found, we can often carry out [drain repairs and pipe relining](/services/drain-repairs/) on the same visit or at a follow-up appointment, using trenchless methods that avoid unnecessary excavation.
 
 ## Cost and Value
 

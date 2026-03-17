@@ -167,12 +167,12 @@ export function getSubServiceBySlug(serviceSlug: string, subServiceSlug: string)
 
 // Related services mapping for improved cross-linking
 export const RELATED_SERVICES: Record<string, string[]> = {
-  "blocked-drains": ["drain-unblocking", "cctv-drain-surveys", "drain-jetting"],
-  "drain-unblocking": ["blocked-drains", "drain-jetting", "emergency-drain-services"],
+  "blocked-drains": ["drain-unblocking", "cctv-drain-surveys", "drain-jetting", "drain-repairs"],
+  "drain-unblocking": ["blocked-drains", "drain-jetting", "emergency-drain-services", "drain-repairs"],
   "cctv-drain-surveys": ["blocked-drains", "drain-repairs", "drain-jetting"],
-  "drain-jetting": ["blocked-drains", "drain-unblocking", "cctv-drain-surveys"],
+  "drain-jetting": ["blocked-drains", "drain-unblocking", "cctv-drain-surveys", "drain-repairs"],
   "emergency-drain-services": ["blocked-drains", "drain-unblocking", "drain-repairs"],
-  "drain-repairs": ["cctv-drain-surveys", "drain-jetting", "blocked-drains"],
+  "drain-repairs": ["cctv-drain-surveys", "drain-jetting", "blocked-drains", "emergency-drain-services"],
 };
 
 export function getRelatedServices(slug: string): Service[] {
