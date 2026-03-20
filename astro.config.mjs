@@ -6,7 +6,15 @@ export default defineConfig({
   site: 'https://swindonblockeddrains.co.uk',
   integrations: [
     tailwind(),
-    sitemap(),
+    sitemap({
+      lastmod: new Date('2026-03-20'),
+      serialize(item) {
+        if (item.url === 'https://swindonblockeddrains.co.uk/') {
+          return { ...item, priority: 1.0 };
+        }
+        return { ...item, priority: 0.7 };
+      },
+    }),
   ],
   output: 'static',
   build: {
