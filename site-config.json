@@ -1,0 +1,14 @@
+{
+  "site_name": "Swindon Plumber",
+  "city": "Swindon",
+  "region": "Wiltshire",
+  "country": "England",
+  "tier": 2,
+  "domain": "swindon-blocked-drains.co.uk",
+  "layout_variant": "hero-cta",
+  "theme_variant": "trust-blue",
+  "status": "active",
+  "github_repo": "https://github.com/WebFoundryAI/swindon-blocked-drains.git",
+  "source_folder": "rank-to-rent-sites/swindon-blocked-drains",
+  "notes": "Tier 2 site. Migrated from existing rank-to-rent-sites folder."
+}

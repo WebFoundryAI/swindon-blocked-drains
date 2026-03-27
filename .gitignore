@@ -28,3 +28,6 @@ pnpm-debug.log*
 
 # vscode
 .vscode/
+
+# Generated QC and audit reports
+QC-REPORT*.html
