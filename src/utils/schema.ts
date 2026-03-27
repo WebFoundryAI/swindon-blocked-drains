@@ -70,7 +70,7 @@ export function getBaseBusinessSchema() {
           "@type": "Service",
           "name": service.name,
           "description": service.description,
-          "url": `${siteUrl}/services/${service.slug}`
+          "url": `${siteUrl}/services/${service.slug}/`
         }
       }))
     },
@@ -110,7 +110,7 @@ export function getServicePageSchema(service: Service) {
     "@id": `${siteUrl}/services/${service.slug}/#service`,
     "name": service.name,
     "description": service.description,
-    "url": `${siteUrl}/services/${service.slug}`,
+    "url": `${siteUrl}/services/${service.slug}/`,
     "provider": {
       "@id": `${siteUrl}/#business`
     },
@@ -127,7 +127,7 @@ export function getServicePageSchema(service: Service) {
           "@type": "Service",
           "name": sub.name,
           "description": sub.description,
-          "url": `${siteUrl}/services/${service.slug}/${sub.slug}`
+          "url": `${siteUrl}/services/${service.slug}/${sub.slug}/`
         }
       }))
     } : undefined,
@@ -157,7 +157,7 @@ export function getSubServicePageSchema(service: Service, subService: SubService
     "@id": `${siteUrl}/services/${service.slug}/${subService.slug}/#service`,
     "name": subService.name,
     "description": subService.description,
-    "url": `${siteUrl}/services/${service.slug}/${subService.slug}`,
+    "url": `${siteUrl}/services/${service.slug}/${subService.slug}/`,
     "provider": {
       "@id": `${siteUrl}/#business`
     },
@@ -168,7 +168,7 @@ export function getSubServicePageSchema(service: Service, subService: SubService
     "isRelatedTo": {
       "@type": "Service",
       "name": service.name,
-      "url": `${siteUrl}/services/${service.slug}`
+      "url": `${siteUrl}/services/${service.slug}/`
     },
     "serviceType": subService.name,
     "availableChannel": {
@@ -227,7 +227,7 @@ export function getLocationServicePageSchema(location: Location, service: Servic
     "@id": `${siteUrl}/locations/${location.slug}/${service.slug}/#service`,
     "name": `${service.name} in ${location.name}`,
     "description": `Professional ${service.name.toLowerCase()} services in ${location.name}, ${location.countyOrRegion || 'Swindon and surrounding Wiltshire areas'}. Fast response, no call-out fee, 24/7 availability.`,
-    "url": `${siteUrl}/locations/${location.slug}/${service.slug}`,
+    "url": `${siteUrl}/locations/${location.slug}/${service.slug}/`,
     "provider": {
       "@id": `${siteUrl}/#business`
     },
